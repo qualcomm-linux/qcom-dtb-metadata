@@ -46,48 +46,76 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs615-ride.dtb");
 			type = "flat_dt";
 		};
+		fdt-qcm6490-video.dtbo {
+			data =  /incbin/("./qcm6490-video.dtbo");
+			type = "flat_dt";
+		};
+		fdt-qcm6490-graphics.dtbo {
+			data =  /incbin/("./qcm6490-graphics.dtbo");
+			type = "flat_dt";
+		};
+		fdt-qcm6490-camera-idp.dtbo {
+			data =  /incbin/("./qcm6490-camera-idp.dtbo");
+			type = "flat_dt";
+		};
+		fdt-qcm6490-camera-rb3.dtbo {
+			data =  /incbin/("./qcm6490-camera-rb3.dtbo");
+			type = "flat_dt";
+		};
+		fdt-sa8775p-video.dtbo {
+			data =  /incbin/("./sa8775p-video.dtbo");
+			type = "flat_dt";
+		};
+		fdt-qcs9100-graphics.dtbo {
+			data =  /incbin/("./qcs9100-graphics.dtbo");
+			type = "flat_dt";
+		};
+		fdt-qcs9100-ride-sx-camera.dtbo {
+			data =  /incbin/("./qcs9100-ride-sx-camera.dtbo");
+			type = "flat_dt";
+		};
+		fdt-qcs9075-camera-iq-9075-evk.dtbo {
+			data =  /incbin/("./qcs9075-camera-iq-9075-evk.dtbo");
+			type = "flat_dt";
+		};   
 	};
 
 	configurations {
 		conf-1 {
 			compatible = "qcom,qcm6490-idp";
-			fdt = "fdt-1";
+			fdt = "fdt-qcm6490-idp.dtb", "fdt-qcm6490-video.dtbo", "fdt-qcm6490-graphics.dtbo", "fdt-qcm6490-camera-idp.dtbo";
 		};
 		conf-2 {
 			compatible = "qcom,qcs6490-iot";
-			fdt = "fdt-2";
+			fdt = "fdt-qcs6490-rb3gen2.dtb", "fdt-qcm6490-video.dtbo", "fdt-qcm6490-graphics.dtbo", "fdt-qcm6490-camera-rb3.dtbo";
 		};
 		conf-3 {
 			compatible = "qcom,qcs6490-iot-subtype2";
-			fdt = "fdt-3";
+			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine.dtb", "fdt-qcm6490-video.dtbo", "fdt-qcm6490-graphics.dtbo", "fdt-qcm6490-camera-rb3.dtbo";
 		};
 		conf-4 {
-			compatible = "qcom,qcs6490v3-iot-subtype2";
-			fdt = "fdt-3";
+			compatible = "qcom,qcs6490-iot-subtype9";
+			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-qcm6490-video.dtbo", "fdt-qcm6490-graphics.dtbo";
 		};
 		conf-5 {
-			compatible = "qcom,qcs6490-iot-subtype9";
-			fdt = "fdt-4";
+			compatible = "qcom,qcs9075-iot";
+			fdt = "fdt-lemans-evk.dtb", "fdt-sa8775p-video.dtbo", "fdt-qcs9100-graphics.dtbo", "fdt-qcs9075-camera-iq-9075-evk.dtbo";
 		};
 		conf-6 {
-			compatible = "qcom,qcs9075-iot";
-			fdt = "fdt-5";
+			compatible = "qcom,qcs9100-adp";
+			fdt = "fdt-qcs9100-ride.dtb", "fdt-sa8775p-video.dtbo", "fdt-qcs9100-graphics.dtbo", "fdt-qcs9100-ride-sx-camera.dtbo";
 		};
 		conf-7 {
-			compatible = "qcom,qcs9100-adp";
-			fdt = "fdt-6";
+			compatible = "qcom,qcs8300-adp";
+			fdt = "fdt-qcs8300-ride.dtb";
 		};
 		conf-8 {
-			compatible = "qcom,qcs8300-adp";
-			fdt = "fdt-7";
+			compatible = "qcom,qcs8275-iot";
+			fdt = "fdt-monaco-evk.dtb";
 		};
 		conf-9 {
-			compatible = "qcom,qcs8275-iot";
-			fdt = "fdt-8";
-		};
-		conf-10 {
 			compatible = "qcom,qcs615-adp";
-			fdt = "fdt-9";
+			fdt = "fdt-qcs615-ride.dtb";
 		};
 	};
 };
