@@ -2,7 +2,6 @@
 
 / {
 	description = "Qualcomm FIT Image for DTBs";
-	#address-cells = <1>;
 
 	images {
 		fdt-qcom-metadata.dtb {
