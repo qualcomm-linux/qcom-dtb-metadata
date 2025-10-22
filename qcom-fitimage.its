@@ -25,8 +25,8 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtb");
 			type = "flat_dt";
 		};
-		fdt-lemans-evk.dtb {
-			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk.dtb");
+		fdt-qcs9075-iq-9075-evk.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9075-iq-9075-evk.dtb");
 			type = "flat_dt";
 		};
 		fdt-qcs9100-ride.dtb {
@@ -37,8 +37,8 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs8300-ride.dtb");
 			type = "flat_dt";
 		};
-		fdt-monaco-evk.dtb {
-			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk.dtb");
+		fdt-qcs8275-iq-8275-evk.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs8275-iq-8275-evk.dtb");
 			type = "flat_dt";
 		};
 		fdt-qcs615-ride.dtb {
@@ -122,7 +122,7 @@
 		};
 		conf-5 {
 			compatible = "qcom,qcs9075-iot";
-			fdt = "fdt-lemans-evk.dtb", "fdt-sa8775p-video.dtbo", "fdt-qcs9100-graphics.dtbo", "fdt-qcs9075-camera-iq-9075-evk.dtbo";
+			fdt = "fdt-qcs9075-iq-9075-evk.dtb", "fdt-sa8775p-video.dtbo", "fdt-qcs9100-graphics.dtbo", "fdt-qcs9075-camera-iq-9075-evk.dtbo";
 		};
 		conf-6 {
 			compatible = "qcom,qcs9100-adp";
@@ -134,7 +134,7 @@
 		};
 		conf-8 {
 			compatible = "qcom,qcs8275-iot";
-			fdt = "fdt-monaco-evk.dtb", "fdt-qcs8300-video.dtbo", "fdt-qcs8300-graphics.dtbo", "fdt-qcs8275-camera-iq-8275-evk.dtbo";
+			fdt = "fdt-qcs8275-iq-8275-evk.dtb", "fdt-qcs8300-video.dtbo", "fdt-qcs8300-graphics.dtbo", "fdt-qcs8275-camera-iq-8275-evk.dtbo";
 		};
 		conf-9 {
 			compatible = "qcom,qcs615-adp";
