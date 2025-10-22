@@ -5,44 +5,44 @@
 	#address-cells = <1>;
 
 	images {
-		fdt-0 {
+		fdt-qcom-metadata.dtb {
 			description = "metadata for multi-DTB selection";
 			data = /incbin/("./qcom-metadata.dtb");
 			type = "qcom_metadata";
 		};
-		fdt-1 {
+		fdt-qcm6490-idp.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcm6490-idp.dtb");
 			type = "flat_dt";
 		};
-		fdt-2 {
+		fdt-qcs6490-rb3gen2.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dtb");
 			type = "flat_dt";
 		};
-		fdt-3 {
+		fdt-qcs6490-rb3gen2-vision-mezzanine.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtb");
 			type = "flat_dt";
 		};
-		fdt-4 {
+		fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtb");
 			type = "flat_dt";
 		};
-		fdt-5 {
+		fdt-lemans-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk.dtb");
 			type = "flat_dt";
 		};
-		fdt-6 {
+		fdt-qcs9100-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9100-ride.dtb");
 			type = "flat_dt";
 		};
-		fdt-7 {
+		fdt-qcs8300-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs8300-ride.dtb");
 			type = "flat_dt";
 		};
-		fdt-8 {
+		fdt-monaco-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk.dtb");
 			type = "flat_dt";
 		};
-		fdt-9 {
+		fdt-qcs615-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs615-ride.dtb");
 			type = "flat_dt";
 		};
@@ -62,7 +62,7 @@
 			fdt = "fdt-3";
 		};
 		conf-4 {
-			compatible = "qcom,qcs6490r3-iot-subtype2";
+			compatible = "qcom,qcs6490v3-iot-subtype2";
 			fdt = "fdt-3";
 		};
 		conf-5 {
