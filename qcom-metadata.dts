@@ -10,8 +10,6 @@
 
 / {
 	description = "Image with compressed metadata blob";
-	#address-cells = <2>;
-	#size-cells = <2>;
 
 	soc {
 		qcm6490 {
