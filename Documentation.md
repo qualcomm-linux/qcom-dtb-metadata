@@ -119,7 +119,7 @@ If any new suffix is introduced, it must be added to metadata (pls refer qcom-dt
 			fdt = "fdt-lemans-evk.dtb";
 		};
 		conf-6 {
-			compatible = "qcom,qcs9100-adp";
+			compatible = "qcom,qcs9100-qam";
 			fdt = "fdt-qcs9100-ride.dtb";
 		};
 		conf-7 {
