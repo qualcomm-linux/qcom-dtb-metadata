@@ -33,6 +33,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9100-ride.dtb");
 			type = "flat_dt";
 		};
+		fdt-qcs9100-ride-r3.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb");
+			type = "flat_dt";
+		};
 		fdt-qcs8300-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs8300-ride.dtb");
 			type = "flat_dt";
@@ -89,34 +93,42 @@
 			fdt = "fdt-qcs9100-ride.dtb";
 		};
 		conf-9 {
+			compatible = "qcom,qcs9100-qamr2";
+			fdt = "fdt-qcs9100-ride-r3.dtb";
+		};
+		conf-10 {
+			compatible = "qcom,qcs9100v2-qamr2";
+			fdt = "fdt-qcs9100-ride-r3.dtb";
+		};
+		conf-11 {
 			compatible = "qcom,qcs8300-adp";
 			fdt = "fdt-qcs8300-ride.dtb";
 		};
-		conf-10 {
+		conf-12 {
 			compatible = "qcom,qcs8275-iot";
 			fdt = "fdt-monaco-evk.dtb";
 		};
-		conf-11 {
+		conf-13 {
 			compatible = "qcom,qcs615-adp";
 			fdt = "fdt-qcs615-ride.dtb";
 		};
-		conf-12 {
+		conf-14 {
 			compatible = "qcom,qcs615v1.1-adp";
 			fdt = "fdt-qcs615-ride.dtb";
 		};
-		conf-13 {
+		conf-15 {
 			compatible = "qcom,sa8775p-qam";
 			fdt = "fdt-sa8775p-ride.dtb";
 		};
-		conf-14 {
+		conf-16 {
 			compatible = "qcom,sa8775pv2-qam";
 			fdt = "fdt-sa8775p-ride.dtb";
 		};
-		conf-15 {
+		conf-17 {
 			compatible = "qcom,sa8775p-qamr2";
 			fdt = "fdt-sa8775p-ride-r3.dtb";
 		};
-		conf-16 {
+		conf-18 {
 			compatible = "qcom,sa8775pv2-qamr2";
 			fdt = "fdt-sa8775p-ride-r3.dtb";
 		};
