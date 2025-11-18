@@ -12,6 +12,14 @@
 	description = "Image with compressed metadata blob";
 
 	soc {
+		hamoa {
+			msm-id = <0x000002c5 0x10>;
+		};
+
+		hamoav2.1 {
+			msm-id = <0x000002c5 0x21>;
+		};
+
 		qcm6490 {
 			msm-id = <0x000001f1 0x10>;
 		};
@@ -78,6 +86,10 @@
 
 		cdp {
 			board-id = <0x00000001>;
+		};
+
+		evk {
+			board-id = <0x0000002f>;
 		};
 
 		idp {
