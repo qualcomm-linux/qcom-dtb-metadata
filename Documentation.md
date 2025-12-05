@@ -424,6 +424,70 @@ fastboot flash dtb_a dtb.bin &&
 fastboot flash dtb_b dtb.bin
  
 ```
+
+**Sample Workflow for Creation of FIT image for QLI based Boards**
+
+UEFI firmware looks for the DTB image flashed in dtb_a partition via dtb.bin. If dtb.bin has "qclinux_fit.img", UEFI firmware proceeds with FIT based DT selection. If dtb.bin has "combined-dtb.dtb", it proceeds with legacy DT selection mechanism based on msm-id, board-id which are part of DT files itself.
+
+For the FIT based DT selection, "qclinux_fit.img" contains qcom-fitimage.its along with all dtb/dtbo appended to it. The size and offset of each of the appended dtb/dtbo are part of generated FIT image.
+
+For the Legacy DT selection, "combined-dtb.dtb" contains all dtb packed.
+Script based creation of FIT image can be achieved using kmake-image/make_fitimage.sh at main · qualcomm-linux/kmake-image.
+
+For the manual creation of FIT image, steps are given below.
+```sh
+# Install the necessary tools:
+sudo apt-get install device-tree-compiler u-boot-tools mtools
+# Clone the qcom-dtb-metadata project
+git clone git@github.com:qualcomm-linux/qcom-dtb-metadata.git
+mkdir fit_image
+cp -rap qcom-dtb-metadata/qcom-fitimage.its qcom-dtb-metadata/qcom-next-fitimage.its qcom-dtb-metadata/qcom-metadata.dts fit_image/
+
+# Copy the dtb/dtbo files from the kernel tree to the fit_image directory. For steps on cloning and building the Qualcomm Linux Kernel Tree, pls refer https://github.com/qualcomm-linux/kmake-image/blob/main/README.md.
+# Checkout and build Qualcomm Linux Kernel : main branch, if you need dtb/dtbo from upstream kernel (https://github.com/qualcomm-linux/kernel/tree/main)
+# Checkout and build Qualcomm Linux Kernel : qcom-next branch, if you need dtb/dtbo from qcom-next kernel (https://github.com/qualcomm-linux/kernel/tree/qcom-next). 
+mkdir -p fit_image/arch/arm64/boot/dts/qcom/
+# Copy the compiled *dtb* files from the kernel's kobj directory into your fit_image directory
+cp -rap kobj/arch/arm64/boot/dts/qcom/*.dtb* fit_image/arch/arm64/boot/dts/qcom/
+
+# Compile qcom-metadata.dts into qcom-metadata.dtb
+cd fit_image
+dtc -I dts -O dtb -o qcom-metadata.dtb qcom-metadata.dts
+
+# Generate qclinux_fit.img from qcom-fitimage.its (or qcom-next-fitimage.its)
+# Name of .img file has to be qclinux_fit.img since this name is hardcoded in UEFI code.
+	# Naming convention used in UEFI code:
+	#define FIT_BINARY_FILE         L"\\qclinux_fit.img"
+	#define COMBINED_DTB_FILE       L"\\combined-dtb.dtb"
+	#define SECONDARY_DTB_FILE      L"\\secondary-dtb.dtb"
+# "-E" flag places binary data outside the FIT structure. However, since /incbin/ is used in the .its file, all binaries are appended into the same image. The FIT structure contains the offset and size for each appended binary.
+# "-B 8" flag enforces 8‑byte alignment for the image since 8-byte alignment is normally recommended as per standards.
+mkdir out
+# For kernel main branch based FIT image creation
+mkimage -f qcom-fitimage.its out/qclinux_fit.img -E -B 8
+# For kernel qcom-next branch based FIT image creation
+mkimage -f qcom-next-fitimage.its out/qclinux_fit.img -E -B 8
+
+# Pack qclinux_fit.img into fitimage.bin. This fitimage.bin shall be flashed onto dtb_a partition of the board.
+cd ..
+git clone git@github.com:qualcomm-linux/kmake-image.git
+cd kmake-image
+sudo chmod +x generate_boot_bins.sh
+./generate_boot_bins.sh bin --input ../fit_image/out/ --output ../fitimage.bin
+
+# Steps to inspect the generated FIT image
+cd ..
+git clone https://github.com/PabloCastellano/extract-dtb.git
+# Create the "/dtb" folder containing each of the dtb/dtbo
+./extract-dtb/extract_dtb/extract_dtb.py fitimage.bin
+# To verify the ITS DTB contents
+fdtdump dtb/01_dtbdump_%i2\{.dtb
+# To verify the metadata DTB contents
+fdtdump dtb/02_dtbdump_Image_with_compressed_metadata_blob.dtb
+
+# Flash the generated fitimage.bin into dtb_a partition
+fastboot flash dtb_a fitimage.bin
+```
 ---
 
 ### Document Version 1.0
