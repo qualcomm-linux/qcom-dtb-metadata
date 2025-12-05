@@ -441,17 +441,20 @@ sudo apt-get install device-tree-compiler u-boot-tools mtools
 # Clone the qcom-dtb-metadata project
 git clone git@github.com:qualcomm-linux/qcom-dtb-metadata.git
 mkdir fit_image
-cp -rap qcom-dtb-metadata/qcom-fitimage.its qcom-dtb-metadata/qcom-metadata.dts fit_image/
+cp -rap qcom-dtb-metadata/qcom-fitimage.its qcom-dtb-metadata/qcom-next-fitimage.its qcom-dtb-metadata/qcom-metadata.dts fit_image/
 
-# Copy the dtb/dtbo files from the kernel tree to the fit_image directory. For steps on cloning and building the Qualcomm Linux Kernel Tree, pls refer https://github.com/qualcomm-linux/kmake-image/blob/main/README.md
+# Copy the dtb/dtbo files from the kernel tree to the fit_image directory. For steps on cloning and building the Qualcomm Linux Kernel Tree, pls refer https://github.com/qualcomm-linux/kmake-image/blob/main/README.md.
+# Checkout and build Qualcomm Linux Kernel : main branch, if you need dtb/dtbo from upstream kernel (https://github.com/qualcomm-linux/kernel/tree/main)
+# Checkout and build Qualcomm Linux Kernel : qcom-next branch, if you need dts/dtso from qcom-next kernel (https://github.com/qualcomm-linux/kernel/tree/qcom-next). 
 mkdir -p fit_image/arch/arm64/boot/dts/qcom/
+# Copy the compiled *dtb* files from the kernel's kobj directory into your fit_image directory
 cp -rap kobj/arch/arm64/boot/dts/qcom/*.dtb* fit_image/arch/arm64/boot/dts/qcom/
 
 # Compile qcom-metadata.dts into qcom-metadata.dtb
 cd fit_image
 dtc -I dts -O dtb -o qcom-metadata.dtb qcom-metadata.dts
 
-# Generate qclinux_fit.img from qcom-fitimage.its
+# Generate qclinux_fit.img from qcom-fitimage.its (or qcom-next-fitimage.its)
 # Name of .img file has to be qclinux_fit.img since this name is hardcoded in UEFI code.
 	# Naming convention used in UEFI code:
 	#define FIT_BINARY_FILE         L"\\qclinux_fit.img"
@@ -460,7 +463,10 @@ dtc -I dts -O dtb -o qcom-metadata.dtb qcom-metadata.dts
 # "-E" flag places binary data outside the FIT structure. However, since /incbin/ is used in the .its file, all binaries are appended into the same image. The FIT structure contains the offset and size for each appended binary.
 # "-B 8" flag enforces 8‑byte alignment for the image since 8-byte alignment is normally recommended as per standards.
 mkdir out
+# For kernel main branch based FIT image creation
 mkimage -f qcom-fitimage.its out/qclinux_fit.img -E -B 8
+# For kernel qcom-next branch based FIT image creation
+mkimage -f qcom-next-fitimage.its out/qclinux_fit.img -E -B 8
 
 # Pack qclinux_fit.img into fitimage.bin. This fitimage.bin shall be flashed onto dtb_a partition of the board.
 cd ..
