@@ -77,6 +77,14 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/sa8775p-ride-camx.dtbo");
 			type = "flat_dt";
 		};
+		fdt-talos-evk.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-evk.dtb");
+			type = "flat_dt";
+		};
+		fdt-talos-evk-lvds-auo,g133han01.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-evk-lvds-auo,g133han01.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -191,6 +199,22 @@
 		conf-28 {
 			compatible = "qcom,sa8775pv2-qamr2-camx";
 			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo";
+		};
+		conf-29 {
+			compatible = "qcom,qcs615-evk";
+			fdt = "fdt-talos-evk.dtb";
+		};
+		conf-30 {
+			compatible = "qcom,qcs615-evk-subtype6";
+			fdt = "fdt-talos-evk-lvds-auo,g133han01.dtb";
+		};
+		conf-31 {
+			compatible = "qcom,qcs615v1.1-iot";
+			fdt = "fdt-talos-evk.dtb";
+		};
+		conf-32 {
+			compatible = "qcom,qcs615v1.1-iot-subtype6";
+			fdt = "fdt-talos-evk-lvds-auo,g133han01.dtb";
 		};
 	};
 };
