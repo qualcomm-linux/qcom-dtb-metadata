@@ -77,6 +77,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/sa8775p-ride-camx.dtbo");
 			type = "flat_dt";
 		};
+		fdt-lemans-el2.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-el2.dtbo");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -191,6 +195,70 @@
 		conf-28 {
 			compatible = "qcom,sa8775pv2-qamr2-camx-el2gh";
 			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo";
+		};
+		conf-29 {
+			compatible = "qcom,qcs9075-iot";
+			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-30 {
+			compatible = "qcom,qcs9075v2-iot";
+			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-31 {
+			compatible = "qcom,qcs9100-qam";
+			fdt = "fdt-qcs9100-ride.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-32 {
+			compatible = "qcom,qcs9100v2-qam";
+			fdt = "fdt-qcs9100-ride.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-33 {
+			compatible = "qcom,qcs9100-qamr2";
+			fdt = "fdt-qcs9100-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-34 {
+			compatible = "qcom,qcs9100v2-qamr2";
+			fdt = "fdt-qcs9100-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-35 {
+			compatible = "qcom,sa8775p-qam";
+			fdt = "fdt-sa8775p-ride.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-36 {
+			compatible = "qcom,sa8775pv2-qam";
+			fdt = "fdt-sa8775p-ride.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-37 {
+			compatible = "qcom,sa8775p-qamr2";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-38 {
+			compatible = "qcom,sa8775pv2-qamr2";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-39 {
+			compatible = "qcom,qcs9075-iot-camx";
+			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-40 {
+			compatible = "qcom,qcs9075v2-iot-camx";
+			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-41 {
+			compatible = "qcom,sa8775p-qam-camx";
+			fdt = "fdt-sa8775p-ride.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-42 {
+			compatible = "qcom,sa8775pv2-qam-camx";
+			fdt = "fdt-sa8775p-ride.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-43 {
+			compatible = "qcom,sa8775p-qamr2-camx";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-44 {
+			compatible = "qcom,sa8775pv2-qamr2-camx";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
 		};
 	};
 };
