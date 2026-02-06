@@ -97,27 +97,27 @@
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb";
 		};
 		conf-5 {
-			compatible = "qcom,qcs9075-iot";
+			compatible = "qcom,qcs9075-iot-el2gh";
 			fdt = "fdt-lemans-evk.dtb";
 		};
 		conf-6 {
-			compatible = "qcom,qcs9075v2-iot";
+			compatible = "qcom,qcs9075v2-iot-el2gh";
 			fdt = "fdt-lemans-evk.dtb";
 		};
 		conf-7 {
-			compatible = "qcom,qcs9100-qam";
+			compatible = "qcom,qcs9100-qam-el2gh";
 			fdt = "fdt-qcs9100-ride.dtb";
 		};
 		conf-8 {
-			compatible = "qcom,qcs9100v2-qam";
+			compatible = "qcom,qcs9100v2-qam-el2gh";
 			fdt = "fdt-qcs9100-ride.dtb";
 		};
 		conf-9 {
-			compatible = "qcom,qcs9100-qamr2";
+			compatible = "qcom,qcs9100-qamr2-el2gh";
 			fdt = "fdt-qcs9100-ride-r3.dtb";
 		};
 		conf-10 {
-			compatible = "qcom,qcs9100v2-qamr2";
+			compatible = "qcom,qcs9100v2-qamr2-el2gh";
 			fdt = "fdt-qcs9100-ride-r3.dtb";
 		};
 		conf-11 {
@@ -137,19 +137,19 @@
 			fdt = "fdt-qcs615-ride.dtb";
 		};
 		conf-15 {
-			compatible = "qcom,sa8775p-qam";
+			compatible = "qcom,sa8775p-qam-el2gh";
 			fdt = "fdt-sa8775p-ride.dtb";
 		};
 		conf-16 {
-			compatible = "qcom,sa8775pv2-qam";
+			compatible = "qcom,sa8775pv2-qam-el2gh";
 			fdt = "fdt-sa8775p-ride.dtb";
 		};
 		conf-17 {
-			compatible = "qcom,sa8775p-qamr2";
+			compatible = "qcom,sa8775p-qamr2-el2gh";
 			fdt = "fdt-sa8775p-ride-r3.dtb";
 		};
 		conf-18 {
-			compatible = "qcom,sa8775pv2-qamr2";
+			compatible = "qcom,sa8775pv2-qamr2-el2gh";
 			fdt = "fdt-sa8775p-ride-r3.dtb";
 		};
 		conf-19 {
@@ -161,11 +161,11 @@
 			fdt = "fdt-hamoa-iot-evk.dtb";
 		};
 		conf-21 {
-			compatible = "qcom,qcs9075-iot-camx";
+			compatible = "qcom,qcs9075-iot-camx-el2gh";
 			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo";
 		};
 		conf-22 {
-			compatible = "qcom,qcs9075v2-iot-camx";
+			compatible = "qcom,qcs9075v2-iot-camx-el2gh";
 			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo";
 		};
 		conf-23 {
@@ -177,19 +177,19 @@
 			fdt = "fdt-qcs8300-ride.dtb", "fdt-qcs8300-ride-camx.dtbo";
 		};
 		conf-25 {
-			compatible = "qcom,sa8775p-qam-camx";
+			compatible = "qcom,sa8775p-qam-camx-el2gh";
 			fdt = "fdt-sa8775p-ride.dtb", "fdt-sa8775p-ride-camx.dtbo";
 		};
 		conf-26 {
-			compatible = "qcom,sa8775pv2-qam-camx";
+			compatible = "qcom,sa8775pv2-qam-camx-el2gh";
 			fdt = "fdt-sa8775p-ride.dtb", "fdt-sa8775p-ride-camx.dtbo";
 		};
 		conf-27 {
-			compatible = "qcom,sa8775p-qamr2-camx";
+			compatible = "qcom,sa8775p-qamr2-camx-el2gh";
 			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo";
 		};
 		conf-28 {
-			compatible = "qcom,sa8775pv2-qamr2-camx";
+			compatible = "qcom,sa8775pv2-qamr2-camx-el2gh";
 			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo";
 		};
 	};
