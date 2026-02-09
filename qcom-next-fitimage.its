@@ -192,5 +192,17 @@
 			compatible = "qcom,sa8775pv2-qamr2-camx";
 			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo";
 		};
+		conf-29 {
+			compatible = "qcom,qcs5430-iot";
+			fdt = "fdt-qcs6490-rb3gen2.dtb";
+		};
+		conf-30 {
+			compatible = "qcom,qcs5430-iot-subtype2";
+			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine.dtb";
+		};
+		conf-31 {
+			compatible = "qcom,qcs5430-iot-subtype9";
+			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb";
+		};
 	};
 };
