@@ -269,7 +269,7 @@
 			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-el2.dtbo";
 		};
 		conf-44 {
-			compatible = "qcom,fdt-purwa-iot";
+			compatible = "qcom,purwa-iot";
 			fdt = "fdt-purwa-iot-evk.dtb";
 		};
 	};
