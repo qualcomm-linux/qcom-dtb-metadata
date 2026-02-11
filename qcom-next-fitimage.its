@@ -89,6 +89,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-el2.dtbo");
 			type = "flat_dt";
 		};
+		fdt-lemans-evk-mezzanine.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-mezzanine.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -263,6 +267,10 @@
 		conf-43 {
 			compatible = "qcom,qcs9075v2-iot-camx-el2kvm";
 			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-36 {
+			compatible = "qcom,qcs9075v2-iot-subtype1";
+			fdt = "fdt-lemans-evk-mezzanine.dtb";
 		};
 	};
 };
