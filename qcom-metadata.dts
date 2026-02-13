@@ -13,68 +13,67 @@
 
 	soc {
 		hamoa {
-			msm-id = <0x000002c5 0x10>;
-		};
-
-		hamoav2.1 {
-			msm-id = <0x000002c5 0x21>;
+			msm-id = <0x000002c5>;
 		};
 
 		purwa {
-			msm-id = <0x000002c7 0x10>;
+			msm-id = <0x000002c7>;
 		};
 
 		qcm6490 {
-			msm-id = <0x000001f1 0x10>;
+			msm-id = <0x000001f1>;
 		};
 
 		qcs615 {
-			msm-id = <0x000002a8 0x10>;
-		};
-
-		qcs615v1.1 {
-			msm-id = <0x000002a8 0x11>;
+			msm-id = <0x000002a8>;
 		};
 
 		qcs5430 {
-			msm-id = <0x0000023f 0x10>;
+			msm-id = <0x0000023f>;
 		};
 
 		qcs6490 {
-			msm-id = <0x000001f2 0x10>;
+			msm-id = <0x000001f2>;
 		};
 
 		qcs8275 {
-			msm-id = <0x000002a3 0x10>;
+			msm-id = <0x000002a3>;
 		};
 
 		qcs8300 {
-			msm-id = <0x000002a2 0x10>;
+			msm-id = <0x000002a2>;
 		};
 
 		qcs9075 {
-			msm-id = <0x000002a4 0x10>;
-		};
-
-		qcs9075v2 {
-			msm-id = <0x000002a4 0x20>;
+			msm-id = <0x000002a4>;
 		};
 
 		qcs9100 {
-			msm-id = <0x0000029b 0x10>;
-		};
-
-		qcs9100v2 {
-			msm-id = <0x0000029b 0x20>;
+			msm-id = <0x0000029b>;
 		};
 
 		sa8775p {
-			msm-id = <0x00000216 0x10>;
+			msm-id = <0x00000216>;
+		};
+	};
+
+	socver {
+		socv1.0 {
+			socver-id = <0x10>;
 		};
 
-		sa8775pv2 {
-			msm-id = <0x00000216 0x20>;
+		socv1.1 {
+			socver-id = <0x11>;
 		};
+
+		socv2.0 {
+			socver-id = <0x20>;
+		};
+
+		socv2.1 {
+			socver-id = <0x21>;
+		};
+
 	};
 
 	soc-sku {
@@ -123,6 +122,25 @@
 		qrd {
 			board-id = <0x0000000b>;
 		};
+	};
+
+	boardrev {
+		r1.0 {
+			boardrev-id = <0x10>;
+		};
+
+		r1.1 {
+			boardrev-id = <0x11>;
+		};
+
+		r2.0 {
+			boardrev-id = <0x20>;
+		};
+
+		r2.1 {
+			boardrev-id = <0x21>;
+		};
+
 	};
 
 	board-subtype-peripheral-subtype {
