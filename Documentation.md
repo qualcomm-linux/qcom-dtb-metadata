@@ -21,7 +21,7 @@ Qualcomm supports multiple SoCs and boards within a single software release bina
  
 ### Requirements
  
-The requirement is to enable DT selection through a widely accepted, upstream-aligned approach. Need to package different DTBs in the same image and enable the firmware (e.g. UEFI) to select right DTB for the hardware platform (board).
+The requirement is to enable DT selection through a widely accepted, upstream-aligned approach. Need to package different DTBs in the same image and enable the firmware (e.g. UEFI) to select right DTB for the hardware platform (soc/board).
 
 ---
  
@@ -38,7 +38,7 @@ The Flattened Image Tree Specification (FITSpec) suggests the possible image sel
 2. This implementation uses a metadata binary structured in DT format for selecting the appropriate configuration. A node, named fdt-qcom-metadata.dtb, for metadata binary is provided under images node in the FIT tree with type “qcom_metadata”.
 3. The compatible string suffixes in the FIT tree can be put in any order but node corresponding to each suffix must be present in the qcom-dtb-metadata binary.
 If any new suffix is introduced, it must be added to metadata (pls refer qcom-dtb-metadata.dts below this section). The new suffix sub-node must be added under the relevant node.
-   - Suggested pattern: `<soc>-<soc-sku>-<board>-<board-subtype-peripheral-subtype>-<board-subtype-storage-type>-<board-subtype-memory-size>-<softsku>-<oem>`
+   - Suggested pattern: `<soc>-<soc-sku>-<socver>-<board>-<boardrev>-<board-subtype-peripheral-subtype>-<board-subtype-storage-type>-<board-subtype-memory-size>-<softsku>-<oem>`
 4. There is to be build-time check to find any gaps/disparity between the compatible string suffixes versus their metadata definitions.
 5. Each of the suffixes inside the compatible string need to be exact match for a DTB to get selected. Upon any mismatch a configuration is rejected, and search moves ahead with other available configurations.
 6. The compatible string that gets matched has its corresponding DTB(O)s selected for boot up.
@@ -53,22 +53,26 @@ Refer: https://github.com/qualcomm-linux/qcom-dtb-metadata/blob/main/qcom-fitima
  
 ### DTB Metadata Description and Parsing
  
-- The QCOM metadata supports soc, soc-sku, board, board-subtype-peripheral-subtype, board-subtype-storage-type, board-subtype-memory-size, softsku and oem DT nodes. Sub-nodes of respective type can be added under each node.
+- The QCOM metadata supports soc, soc-sku, socver, board, boardrev, board-subtype-peripheral-subtype, board-subtype-storage-type, board-subtype-memory-size, softsku and oem DT nodes. Sub-nodes of respective type can be added under each node.
 
-- The SoC specific identifiers are encapsulated in a DT property named msm-id .  
+- The SoC specific identifiers are encapsulated in DT properties named msm-id and socver-id.
 
-- Each sub-node under soc node must contain msm-id property of type <u32 u32>.
-Bits 0-15 of the first 32-bit cell represents the chip identifier, and the remaining bits are reserved. 
-Bits 0-7 of the second 32-bit cell represents the chip version, and the remaining bits are reserved. 
-The chip version is further divided into major version (bits 4-7) and minor version (bits 0-3). 
+- Each sub-node under soc node must contain msm-id property of type <u32>.
+Bits 0-15 of the 32-bit value represents the chip identifier, and the remaining bits are reserved.
 
--  Each sub-node under soc-sku node should contain msm-id property of type <u32>.
+- Each sub-node under soc-sku node should contain msm-id property of type <u32>.
 Bits 20-21 of the 32-bit value represent package-id, bits 16-19 represent the foundry-id and the remaining bits are ignored by the firmware.
 
-- The board specific identifiers are encapsulated in DT properties named board-id and board-subtype.
+- Each sub-node under socver node should contain socver-id property of type <u32>.
+Bits 0-3 represent the chip minor version, bits 4-7 represent the chip major version, and the remaining bits are reserved.
 
-- Each sub-node under board node must contain a board-id property is of the type <u32>. 
-Bits 0-7 represent the board type, bits 8-11 represent the board major version, bits 12-15 represent the board minor version and the remaining bits are reserved.
+- The board specific identifiers are encapsulated in DT properties named board-id, boardrev-id and board-subtype.
+
+- Each sub-node under board node must contain a board-id property of type <u32>.
+Bits 0-7 represent the board type, and the remaining bits are reserved.
+
+- Each sub-node under boardrev node must contain a boardrev-id property of type <u32>.
+Bits 0-3 represent the board minor version, bits 4-7 represent the board major version, and the remaining bits are reserved.
 
 - Each sub-node under board-subtype-peripheral-subtype, board-subtype-storage-type and board-subtype-memory-size nodes should contain a board-subtype property of type <u32>.
 When board-subtype property is present in sub-node of board-subtype-peripheral-subtype node, bits 0-7 represent the peripheral-based subtype and the remaining bits are ignored by the firmware.
@@ -82,9 +86,9 @@ The oem-id represents the OEM. It is to be added by the OEM for selection of the
 - Each sub-node under softsku node must contain a property named softsku-id which is of <u32> type.
 The softsku-id represents the software SKU. It is added for soft SKU (license) based selection of DT.
 
-- The msm-id gets compared with the chip identifier value read from the SoC.
+- The msm-id and socver-id get compared with the chip identifier value read from the SoC.
 
-- The board-id, board-subtype-peripheral-subtype and oem-id get compared with the hardware description values (Configuration Data Table - CDT) flashed on the board's persistent memory.
+- The board-id, boardrev-id and board-subtype-peripheral-subtype and oem-id get compared with the hardware description values (Configuration Data Table - CDT) flashed on the board's persistent memory.
 
 - The board-subtype-storage-type gets compared with the board's boot device type detected by the UEFI firmware.
 
@@ -92,6 +96,61 @@ The softsku-id represents the software SKU. It is added for soft SKU (license) b
 
 ---
  
+#### Guidelines for adding socver and boardrev
+
+- For any platform, the configuration entry with the shortest compatible string (containing only the soc and board fields) must always reference the latest hardware (soc / board) version.
+
+- When adding support for a new hardware version that requires a separate DTB, update the fdt property in the configuration with the shortest compatible string so that it points to the DTB of the latest hardware version.
+If the previously supported latest hardware version must continue to be used, add a new socver / boardrev entry in the metadata DTS for the earlier hardware. Additionally, add a new configuration entry in the FIT ITS that corresponds to the platform compatible with the newly added socver / boardrev.
+
+- Consider the following example:
+The "soc" platform supports two chip versions — socv1.0 and socv1.1 — and both versions share the same DTB (soc-v1.dtb).
+
+FIT ITS:
+```dts
+config-1 {
+	compatible = "qcom,soc";
+	fdt = "fdt-soc-v1.dtb";
+};
+
+```
+Now a new chip version socv2.0 is introduced, which requires new DTB (soc-v2.dtb).
+The older chip versions must continue to be supported.
+
+Updated FIT ITS:
+```dts
+config-1 {
+        compatible = "qcom,soc";
+        fdt = "fdt-soc-v2.dtb";
+};
+
+config-2 {
+        compatible = "qcom,soc-socv1.0";
+        fdt = ""fdt-soc-v1.dtb"
+};
+
+config-3 {
+        compatible = "qcom,soc-socv1.1";
+        fdt = "fdt-soc-v1.dtb";
+};
+
+```
+Updated Metadata DTB:
+```dts
+socv1.0 {
+        socver-id = <0x10>;
+};
+
+socv1.1 {
+        socver-id = <0x11>;
+};
+
+```
+
+- If older hardware requires a separate DT and is not currently supported in the FIT, add the required socver / boardrev entries in alphabetical order.
+
+---
+
 #### qcom-metadata.dts
 
 Refer: https://github.com/qualcomm-linux/qcom-dtb-metadata/blob/main/qcom-metadata.dts
