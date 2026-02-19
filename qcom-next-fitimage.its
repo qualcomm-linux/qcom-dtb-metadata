@@ -97,6 +97,14 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-el2.dtbo");
 			type = "flat_dt";
 		};
+		fdt-lemans-evk-mezzanine.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-mezzanine.dtb");
+			type = "flat_dt";
+		};
+		fdt-monaco-evk-mezzanine.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-mezzanine.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -323,6 +331,14 @@
 		conf-56 {
 			compatible = "qcom,qcs8300-adp-camx-el2kvm";
 			fdt = "fdt-qcs8300-ride.dtb", "fdt-qcs8300-ride-camx.dtbo", "fdt-monaco-el2.dtbo";
+		};
+		conf-57 {
+			compatible = "qcom,qcs9075-socv2.0-iot-subtype1";
+			fdt = "fdt-lemans-evk-mezzanine.dtb";
+		};
+		conf-58 {
+			compatible = "qcom,qcs8275-iot-subtype3";
+			fdt = "fdt-monaco-evk-mezzanine.dtb";
 		};
 	};
 };
