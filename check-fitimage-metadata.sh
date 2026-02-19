@@ -49,6 +49,89 @@ fi
 tmpdir="$(mktemp -d)"
 trap 'rm -rf "$tmpdir"' EXIT
 
+# -----------------------------------------------------------------------------
+# FUNCTION: Validate Metadata 
+# -----------------------------------------------------------------------------
+validate_metadata() {
+   if ! dtc -I dts -O dtb -o /dev/null "$META_FILE" >/dev/null 2>&1; then
+	echo "fail INVALID_DTS_SYNTAX $META_FILE" >&2
+    	exit 1
+   else
+	echo "Metadata Syntax Check: Pass"   
+   fi
+}
+validate_metadata "$META_FILE"
+
+# -----------------------------------------------------------------------------
+# FUNCTION: Validate ITS Syntax
+# Checks:
+# 1. Configuration nodes (conf-) have opening braces '{'
+# 2. 'compatible' and 'fdt' properties end with a semicolon ';'
+# 3. Configuration nodes are closed properly '};'
+# -----------------------------------------------------------------------------
+
+validate_its_syntax() {
+    local file="$1"
+
+    # We use awk to track state (inside a conf node or not)
+    # logic:
+    #   - If line has 'conf-', ensure it has '{'
+    #   - If inside conf node, check compatible/fdt lines for trailing ';'
+    #   - Track braces to ensure closing
+    awk '
+    BEGIN {
+        in_conf = 0;
+        errors = 0;
+    }
+
+    # 1. Check for Configuration Node Start
+    # Matches "conf-" but ensures it has an opening brace
+    /conf-/ {
+        if ($0 ~ /\{/) {
+            in_conf = 1;
+        } else {
+            print "ERROR: Line " NR ": Configuration node missing opening brace -> " $0;
+            errors++;
+        }
+    }
+
+    # 2. Check Properties (only while inside a conf node)
+    in_conf && /^\s*(compatible|fdt)\s*=/ {
+        # Check if line ends with semicolon (ignoring trailing whitespace)
+        if ($0 !~ /;\s*$/) {
+            print "ERROR: Line " NR ": Property missing trailing semicolon -> " $0;
+            errors++;
+        }
+    }
+
+    # 3. Check for Node Closing
+    # If we see "};" and we were in a conf, mark it closed
+    in_conf && /^\s*};\s*$/ {
+        in_conf = 0;
+    }
+
+    END {
+        if (errors > 0) {
+            print "ITS Syntax Check: FAILED (" errors " errors found)";
+            exit 1;
+        } else {
+            print "ITS Syntax Check: PASS";
+            exit 0;
+        }
+    }
+    ' "$file"
+
+    # Capture awk exit code
+    if [ $? -ne 0 ]; then
+        echo "Exiting due to ITS syntax errors."
+        exit 1
+    fi
+}
+
+validate_its_syntax "$ITS_FILE"
+
+
+
 missing_any=0
 
 ###############################################################################
