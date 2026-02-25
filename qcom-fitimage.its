@@ -85,63 +85,35 @@
 			fdt = "fdt-lemans-evk.dtb";
 		};
 		conf-6 {
-			compatible = "qcom,qcs9075-socv2.0-iot";
-			fdt = "fdt-lemans-evk.dtb";
+			compatible = "qcom,qcs9100-qam";
+			fdt = "fdt-qcs9100-ride-r3.dtb";
 		};
 		conf-7 {
-			compatible = "qcom,qcs9100-qam";
+			compatible = "qcom,qcs9100-qam-r1.0";
 			fdt = "fdt-qcs9100-ride.dtb";
 		};
 		conf-8 {
-			compatible = "qcom,qcs9100-socv2.0-qam";
-			fdt = "fdt-qcs9100-ride.dtb";
-		};
-		conf-9 {
-			compatible = "qcom,qcs9100-qam-r2.0";
-			fdt = "fdt-qcs9100-ride-r3.dtb";
-		};
-		conf-10 {
-			compatible = "qcom,qcs9100-socv2.0-qam-r2.0";
-			fdt = "fdt-qcs9100-ride-r3.dtb";
-		};
-		conf-11 {
 			compatible = "qcom,qcs8300-adp";
 			fdt = "fdt-qcs8300-ride.dtb";
 		};
-		conf-12 {
+		conf-9 {
 			compatible = "qcom,qcs8275-iot";
 			fdt = "fdt-monaco-evk.dtb";
 		};
-		conf-13 {
+		conf-10 {
 			compatible = "qcom,qcs615-adp";
 			fdt = "fdt-qcs615-ride.dtb";
 		};
-		conf-14 {
-			compatible = "qcom,qcs615-socv1.1-adp";
-			fdt = "fdt-qcs615-ride.dtb";
-		};
-		conf-15 {
+		conf-11 {
 			compatible = "qcom,sa8775p-qam";
-			fdt = "fdt-sa8775p-ride.dtb";
-		};
-		conf-16 {
-			compatible = "qcom,sa8775p-socv2.0-qam";
-			fdt = "fdt-sa8775p-ride.dtb";
-		};
-		conf-17 {
-			compatible = "qcom,sa8775p-qam-r2.0";
 			fdt = "fdt-sa8775p-ride-r3.dtb";
 		};
-		conf-18 {
-			compatible = "qcom,sa8775p-socv2.0-qam-r2.0";
-			fdt = "fdt-sa8775p-ride-r3.dtb";
+		conf-12 {
+			compatible = "qcom,sa8775p-qam-r1.0";
+			fdt = "fdt-sa8775p-ride.dtb";
 		};
-		conf-19 {
+		conf-13 {
 			compatible = "qcom,hamoa-evk";
-			fdt = "fdt-hamoa-iot-evk.dtb";
-		};
-		conf-20 {
-			compatible = "qcom,hamoa-socv2.1-evk";
 			fdt = "fdt-hamoa-iot-evk.dtb";
 		};
 	};

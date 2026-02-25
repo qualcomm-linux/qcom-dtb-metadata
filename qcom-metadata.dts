@@ -57,6 +57,12 @@
 		};
 	};
 
+	soc-sku {
+		sku0 {
+			msm-id = <0x00030000>;
+		};
+	};
+
 	socver {
 		socv1.0 {
 			socver-id = <0x10>;
@@ -74,12 +80,6 @@
 			socver-id = <0x21>;
 		};
 
-	};
-
-	soc-sku {
-		sku0 {
-			msm-id = <0x00030000>;
-		};
 	};
 
 	board {
@@ -113,10 +113,6 @@
 
 		qam {
 			board-id = <0x00000025>;
-		};
-
-		qamr2 {
-			board-id = <0x00002025>;
 		};
 
 		qrd {
