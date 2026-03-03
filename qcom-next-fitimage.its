@@ -121,126 +121,206 @@
 			fdt = "fdt-lemans-evk.dtb";
 		};
 		conf-6 {
-			compatible = "qcom,qcs9100-qam";
-			fdt = "fdt-qcs9100-ride-r3.dtb";
+			compatible = "qcom,qcs9075-socv2.0-iot";
+			fdt = "fdt-lemans-evk.dtb";
 		};
 		conf-7 {
-			compatible = "qcom,qcs9100-qam-r1.0";
+			compatible = "qcom,qcs9100-qam";
 			fdt = "fdt-qcs9100-ride.dtb";
 		};
 		conf-8 {
+			compatible = "qcom,qcs9100-socv2.0-qam";
+			fdt = "fdt-qcs9100-ride.dtb";
+		};
+		conf-9 {
+			compatible = "qcom,qcs9100-qam-r2.0";
+			fdt = "fdt-qcs9100-ride-r3.dtb";
+		};
+		conf-10 {
+			compatible = "qcom,qcs9100-socv2.0-qam-r2.0";
+			fdt = "fdt-qcs9100-ride-r3.dtb";
+		};
+		conf-11 {
 			compatible = "qcom,qcs8300-adp";
 			fdt = "fdt-qcs8300-ride.dtb";
 		};
-		conf-9 {
+		conf-12 {
 			compatible = "qcom,qcs8275-iot";
 			fdt = "fdt-monaco-evk.dtb";
 		};
-		conf-10 {
+		conf-13 {
 			compatible = "qcom,qcs615-adp";
 			fdt = "fdt-qcs615-ride.dtb";
 		};
-		conf-11 {
-			compatible = "qcom,sa8775p-qam";
-			fdt = "fdt-sa8775p-ride-r3.dtb";
+		conf-14 {
+			compatible = "qcom,qcs615-socv1.1-adp";
+			fdt = "fdt-qcs615-ride.dtb";
 		};
-		conf-12 {
-			compatible = "qcom,sa8775p-qam-r1.0";
+		conf-15 {
+			compatible = "qcom,sa8775p-qam";
 			fdt = "fdt-sa8775p-ride.dtb";
 		};
-		conf-13 {
+		conf-16 {
+			compatible = "qcom,sa8775p-socv2.0-qam";
+			fdt = "fdt-sa8775p-ride.dtb";
+		};
+		conf-17 {
+			compatible = "qcom,sa8775p-qam-r2.0";
+			fdt = "fdt-sa8775p-ride-r3.dtb";
+		};
+		conf-18 {
+			compatible = "qcom,sa8775p-socv2.0-qam-r2.0";
+			fdt = "fdt-sa8775p-ride-r3.dtb";
+		};
+		conf-19 {
 			compatible = "qcom,hamoa-evk";
 			fdt = "fdt-hamoa-iot-evk.dtb";
 		};
-		conf-14 {
+		conf-20 {
+			compatible = "qcom,hamoa-socv2.1-evk";
+			fdt = "fdt-hamoa-iot-evk.dtb";
+		};
+		conf-21 {
 			compatible = "qcom,qcs9075-iot-camx";
 			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo";
 		};
-		conf-15 {
+		conf-22 {
+			compatible = "qcom,qcs9075-socv2.0-iot-camx";
+			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo";
+		};
+		conf-23 {
 			compatible = "qcom,qcs8275-iot-camx";
 			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-evk-camx.dtbo";
 		};
-		conf-16 {
+		conf-24 {
 			compatible = "qcom,qcs8300-adp-camx";
 			fdt = "fdt-qcs8300-ride.dtb", "fdt-qcs8300-ride-camx.dtbo";
 		};
-		conf-17 {
+		conf-25 {
 			compatible = "qcom,sa8775p-qam-camx";
-			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo";
-		};
-		conf-18 {
-			compatible = "qcom,sa8775p-qam-r1.0-camx";
 			fdt = "fdt-sa8775p-ride.dtb", "fdt-sa8775p-ride-camx.dtbo";
 		};
-		conf-19 {
+		conf-26 {
+			compatible = "qcom,sa8775p-socv2.0-qam-camx";
+			fdt = "fdt-sa8775p-ride.dtb", "fdt-sa8775p-ride-camx.dtbo";
+		};
+		conf-27 {
+			compatible = "qcom,sa8775p-qam-r2.0-camx";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo";
+		};
+		conf-28 {
+			compatible = "qcom,sa8775p-socv2.0-qam-r2.0-camx";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo";
+		};
+		conf-29 {
 			compatible = "qcom,qcs5430-iot";
 			fdt = "fdt-qcs6490-rb3gen2.dtb";
 		};
-		conf-20 {
+		conf-30 {
 			compatible = "qcom,qcs5430-iot-subtype2";
 			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine.dtb";
 		};
-		conf-21 {
+		conf-31 {
 			compatible = "qcom,qcs5430-iot-subtype9";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb";
 		};
-		conf-22 {
+		conf-32 {
 			compatible = "qcom,qcs615-iot";
 			fdt = "fdt-talos-evk.dtb";
 		};
-		conf-23 {
+		conf-33 {
 			compatible = "qcom,qcs615-iot-subtype6";
 			fdt = "fdt-talos-evk-lvds-auo,g133han01.dtb";
 		};
-		conf-24 {
+		conf-34 {
+			compatible = "qcom,qcs615-socv1.1-iot";
+			fdt = "fdt-talos-evk.dtb";
+		};
+		conf-35 {
+			compatible = "qcom,qcs615-socv1.1-iot-subtype6";
+			fdt = "fdt-talos-evk-lvds-auo,g133han01.dtb";
+		};
+		conf-36 {
 			compatible = "qcom,qcs9075-iot-el2kvm";
 			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-el2.dtbo";
 		};
-		conf-25 {
-			compatible = "qcom,qcs9100-qam-el2kvm";
-			fdt = "fdt-qcs9100-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		conf-37 {
+			compatible = "qcom,qcs9075-socv2.0-iot-el2kvm";
+			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-el2.dtbo";
 		};
-		conf-26 {
-			compatible = "qcom,qcs9100-qam-r1.0-el2kvm";
+		conf-38 {
+			compatible = "qcom,qcs9100-qam-el2kvm";
 			fdt = "fdt-qcs9100-ride.dtb", "fdt-lemans-el2.dtbo";
 		};
-		conf-27 {
+		conf-39 {
+			compatible = "qcom,qcs9100-socv2.0-qam-el2kvm";
+			fdt = "fdt-qcs9100-ride.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-40 {
+			compatible = "qcom,qcs9100-qam-r2.0-el2kvm";
+			fdt = "fdt-qcs9100-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-41 {
+			compatible = "qcom,qcs9100-socv2.0-qam-r2.0-el2kvm";
+			fdt = "fdt-qcs9100-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-42 {
 			compatible = "qcom,qcs9075-iot-camx-el2kvm";
 			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-el2.dtbo";
 		};
-		conf-28 {
+		conf-43 {
+			compatible = "qcom,qcs9075-socv2.0-iot-camx-el2kvm";
+			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-44 {
 			compatible = "qcom,purwa-evk";
 			fdt = "fdt-purwa-iot-evk.dtb";
 		};
-		conf-29 {
+		conf-45 {
 			compatible = "qcom,sa8775p-qam-el2kvm";
-			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-lemans-el2.dtbo";
-		};
-		conf-30 {
-			compatible = "qcom,sa8775p-qam-r1.0-el2kvm";
 			fdt = "fdt-sa8775p-ride.dtb", "fdt-lemans-el2.dtbo";
 		};
-		conf-31 {
-			compatible = "qcom,sa8775p-qam-camx-el2kvm";
-			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
+		conf-46 {
+			compatible = "qcom,sa8775p-socv2.0-qam-el2kvm";
+			fdt = "fdt-sa8775p-ride.dtb", "fdt-lemans-el2.dtbo";
 		};
-		conf-31 {
-			compatible = "qcom,sa8775p-qam-r1.0-camx-el2kvm";
+		conf-47 {
+			compatible = "qcom,sa8775p-qam-r2.0-el2kvm";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-48 {
+			compatible = "qcom,sa8775p-socv2.0-qam-r2.0-el2kvm";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+		};
+		conf-49 {
+			compatible = "qcom,sa8775p-qam-camx-el2kvm";
 			fdt = "fdt-sa8775p-ride.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
 		};
-		conf-32 {
+		conf-50 {
+			compatible = "qcom,sa8775p-socv2.0-qam-camx-el2kvm";
+			fdt = "fdt-sa8775p-ride.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-51 {
+			compatible = "qcom,sa8775p-qam-r2.0-camx-el2kvm";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-52 {
+			compatible = "qcom,sa8775p-socv2.0-qam-r2.0-camx-el2kvm";
+			fdt = "fdt-sa8775p-ride-r3.dtb", "fdt-sa8775p-ride-camx.dtbo", "fdt-lemans-el2.dtbo";
+		};
+		conf-53 {
 			compatible = "qcom,qcs8300-adp-el2kvm";
 			fdt = "fdt-qcs8300-ride.dtb", "fdt-monaco-el2.dtbo";
 		};
-		conf-33 {
+		conf-54 {
 			compatible = "qcom,qcs8275-iot-el2kvm";
 			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-el2.dtbo";
 		};
-		conf-34 {
+		conf-55 {
 			compatible = "qcom,qcs8275-iot-camx-el2kvm";
 			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-evk-camx.dtbo", "fdt-monaco-el2.dtbo";
 		};
-		conf-35 {
+		conf-56 {
 			compatible = "qcom,qcs8300-adp-camx-el2kvm";
 			fdt = "fdt-qcs8300-ride.dtb", "fdt-qcs8300-ride-camx.dtbo", "fdt-monaco-el2.dtbo";
 		};
