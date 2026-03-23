@@ -101,6 +101,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-el2.dtbo");
 			type = "flat_dt";
 		};
+		fdt-talos-el2.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-el2.dtbo");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -251,6 +255,10 @@
 		conf-37 {
 			compatible = "qcom,glymur-crd";
 			fdt = "fdt-glymur-crd.dtb";
+		};
+		conf-38 {
+			compatible = "qcom,qcs615-adp-el2kvm;
+			fdt = "fdt-qcs615-ride.dtb", "fdt-talos-el2.dtbo;
 		};
 	};
 };
