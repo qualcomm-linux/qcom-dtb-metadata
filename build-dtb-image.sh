@@ -52,7 +52,7 @@
 #     5. Pack qclinux_fit.img into a FAT image.
 #
 # Usage:
-#   sudo ./build-dtb-image.sh \
+#   ./build-dtb-image.sh \
 #       (--kernel-deb <path/to/kernel.deb> | --dtb-src <path/to/dtb/dir>) \
 #       [--size <MB>] [--out <file>]
 #
@@ -82,22 +82,19 @@
 # Requirements / Assumptions:
 #   - Linux host with:
 #       * bash
-#       * mkfs.vfat
-#       * losetup
-#       * mount / umount
-#       * dd (status=progress support is nice but not required)
-#       * mountpoint
+#       * dd
+#       * mtools (mformat, mcopy, mdir) — FAT image creation without root
 #       * dtc
 #       * mkimage
 #       * dpkg-deb (only required for --kernel-deb mode)
-#   - This script must be run as root (no internal sudo calls).
+#   - No root privileges required.
 #
 # Notes:
 #   - The resulting FAT image contains qclinux_fit.img at its root.
-#   - The script installs a cleanup trap to:
-#       * unmount the image,
-#       * detach the loop device,
-#       * delete temporary files and directories.
+#   - FAT image creation uses mtools (mformat + mcopy); no loop device,
+#     no mount point, no elevated privileges required at any step.
+#   - The script installs a cleanup trap to remove all temporary
+#     directories on any exit path.
 #
 # =============================================================================
 
@@ -107,12 +104,6 @@ set -euo pipefail
 # All metadata files (ITS, DTS) are read from this directory at runtime —
 # no cloning or network access is required.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Require running as root (needed for losetup, mkfs, mount, etc.)
-if [[ "${EUID}" -ne 0 ]]; then
-    echo "[ERROR] This script must be run as root (no internal sudo calls)." >&2
-    exit 1
-fi
 
 # ----------------------------- Defaults --------------------------------------
 
@@ -124,8 +115,6 @@ DTB_SRC=""             # DTB source directory (resolved; required via one mode)
 KERNEL_DEB=""          # Optional: kernel .deb input (preferred mode)
 DEB_DIR=""             # Temporary extraction directory when using --kernel-deb
 
-MNT_DIR=""             # Temporary mount directory
-LOOP_DEV=""            # Loop device used for the FAT image
 FIT_WORK_DIR=""        # Temporary staging directory for FIT build artefacts
 
 # ITS file used for FIT image generation — must exist in SCRIPT_DIR.
@@ -171,19 +160,6 @@ require_cmd() {
 
 cleanup() {
     local status=$?
-
-    sync || true
-
-    if [[ -n "${MNT_DIR:-}" && -d "$MNT_DIR" ]]; then
-        if mountpoint -q "$MNT_DIR"; then
-            umount "$MNT_DIR" || true
-        fi
-        rmdir "$MNT_DIR" 2>/dev/null || true
-    fi
-
-    if [[ -n "${LOOP_DEV:-}" ]]; then
-        losetup -d "$LOOP_DEV" || true
-    fi
 
     if [[ -n "${DEB_DIR:-}" && -d "$DEB_DIR" ]]; then
         rm -rf "$DEB_DIR" || true
@@ -261,11 +237,9 @@ fi
 
 # Command requirements
 require_cmd dd
-require_cmd losetup
-require_cmd mkfs.vfat
-require_cmd mount
-require_cmd umount
-require_cmd mountpoint
+require_cmd mformat
+require_cmd mcopy
+require_cmd mdir
 require_cmd mktemp
 require_cmd cp
 require_cmd dtc
@@ -412,24 +386,22 @@ file "${FIT_STAGE}/out/qclinux_fit.img"
 # -----------------------------------------------------------------------
 # Step 5. Pack qclinux_fit.img into a FAT image
 # -----------------------------------------------------------------------
+# mtools (mformat + mcopy) operates directly on the image file — no loop
+# device, no mount point, no root privileges required.
 echo "[INFO] Creating FAT image '${DTB_BIN}' (${DTB_BIN_SIZE} MB)..."
 dd if=/dev/zero of="${DTB_BIN}" bs=1M count="${DTB_BIN_SIZE}" status=progress
 
-LOOP_DEV="$(losetup --show -fP "${DTB_BIN}")"
-echo "[INFO] Using loop device: ${LOOP_DEV}"
+echo "[INFO] Formatting '${DTB_BIN}' as FAT (4 KiB sector size)..."
+# -S 5: sector size code → 2^(5+7) = 4096 bytes (matches original mkfs.vfat -S 4096)
+# No -F: let mformat auto-select FAT type based on image size, matching mkfs.vfat behaviour
+mformat -i "${DTB_BIN}" -S 5 ::
 
-MNT_DIR="$(mktemp -d -t dtb-mnt-XXXXXX)"
+echo "[INFO] Copying qclinux_fit.img into FAT image..."
+mcopy -i "${DTB_BIN}" "${FIT_STAGE}/out/qclinux_fit.img" ::
 
-echo "[INFO] Formatting ${LOOP_DEV} as FAT with 4 KiB sector size..."
-mkfs.vfat -S 4096 "${LOOP_DEV}" >/dev/null
-
-echo "[INFO] Mounting ${LOOP_DEV} at ${MNT_DIR}..."
-mount "${LOOP_DEV}" "${MNT_DIR}"
-
-cp "${FIT_STAGE}/out/qclinux_fit.img" "${MNT_DIR}/"
 echo "[INFO] Deployed qclinux_fit.img into FAT image."
 echo "[INFO] Files in image:"
-ls -lh "${MNT_DIR}"
+mdir -i "${DTB_BIN}" ::
 
 # Normal exit (cleanup will still run, but now everything should succeed).
 exit 0
