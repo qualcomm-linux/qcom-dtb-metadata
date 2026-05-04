@@ -60,15 +60,15 @@
 			msm-id = <0x00000216>;
 		};
 
-		shikra-cqm {
+		shikracqm {
 			msm-id = <0x000002f4>;
 		};
 
-		shikra-cqs {
+		shikracqs {
 			msm-id = <0x000002f6>;
 		};
 
-		shikra-iqs {
+		shikraiqs {
 			msm-id = <0x000002f7>;
 		};
 	};
