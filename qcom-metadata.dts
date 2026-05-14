@@ -59,6 +59,18 @@
 		sa8775p {
 			msm-id = <0x00000216>;
 		};
+
+		shikra-cqm {
+			msm-id = <0x000002f4>;
+		};
+
+		shikra-cqs {
+			msm-id = <0x000002f6>;
+		};
+
+		shikra-iqs {
+			msm-id = <0x000002f7>;
+		};
 	};
 
 	soc-sku {
