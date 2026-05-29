@@ -297,8 +297,8 @@
 			fdt = "fdt-qcs615-ride.dtb", "fdt-talos-el2.dtbo";
 		};
 		conf-39 {
-			compatible = "qcom,hamoa-evk-camx-el2kvm";
-			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-camx-el2.dtbo";
+			compatible = "qcom,hamoa-evk-el2kvm";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-x1-el2.dtbo";
 		};
 		conf-40 {
 			compatible = "qcom,qcs9075-iot-subtype1";
@@ -311,6 +311,10 @@
 		conf-42 {
 			compatible = "qcom,purwa-evk-el2kvm";
 			fdt = "fdt-purwa-iot-evk.dtb", "fdt-x1-el2.dtbo";
+		};
+		conf-43 {
+			compatible = "qcom,hamoa-evk-el2kvm-camx";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-x1-el2.dtbo", "fdt-hamoa-camx-el2.dtbo";
 		};
 	};
 };
