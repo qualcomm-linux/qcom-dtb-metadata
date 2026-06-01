@@ -145,6 +145,14 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-evk-camx.dtbo");
 			type = "flat_dt";
 		};
+		fdt-purwa-camx-el2.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-camx-el2.dtbo");
+			type = "flat_dt";
+		};
+		fdt-purwa-evk-camx.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-evk-camx.dtbo");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -319,6 +327,10 @@
 		conf-43 {
 			compatible = "qcom,hamoa-evk-el2kvm-camx";
 			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-x1-el2.dtbo", "fdt-hamoa-evk-camx.dtbo", "fdt-hamoa-camx-el2.dtbo";
+		};
+		conf-44 {
+			compatible = "qcom,purwa-evk-el2kvm";
+			fdt = "fdt-purwa-iot-evk.dtb", "fdt-x1-el2.dtbo", "fdt-purwa-evk-camx.dtbo", "fdt-purwa-camx-el2.dtbo";
 		};
 	};
 };
