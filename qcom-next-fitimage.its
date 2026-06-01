@@ -113,6 +113,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-iot-evk-camera-imx577.dtbo");
 			type = "flat_dt";
 		};
+		fdt-hamoa-staging.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-staging.dtbo");
+			type = "flat_dt";
+		};
 		fdt-monaco-camx-el2.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-camx-el2.dtbo");
 			type = "flat_dt";
@@ -307,6 +311,14 @@
 		conf-42 {
 			compatible = "qcom,purwa-evk-el2kvm";
 			fdt = "fdt-purwa-iot-evk.dtb", "fdt-x1-el2.dtbo";
+		};
+		conf-43 {
+			compatible = "qcom,hamoa-evk-staging";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-hamoa-staging.dtbo";
+		};
+		conf-44 {
+			compatible = "qcom,hamoa-evk-el2kvm-staging";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-staging.dtbo";
 		};
 	};
 };
