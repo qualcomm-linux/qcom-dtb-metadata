@@ -29,6 +29,22 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk.dtb");
 			type = "flat_dt";
 		};
+		/*
+		 * Workaround: the kernel does not currently install the raw
+		 * lemans *.dtbo overlays, only the pre-applied composite DTBs
+		 * (base + overlay, applied at build time via fdtoverlay). Use
+		 * those flat DTBs directly so configurations need no .dtbo at
+		 * boot. Drop these once the overlays are installed upstream and
+		 * the configs can reference base + .dtbo again.
+		 */
+		fdt-lemans-evk-camera-csi1-imx577.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-camera-csi1-imx577.dtb");
+			type = "flat_dt";
+		};
+		fdt-lemans-evk-ifp-mezzanine.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtb");
+			type = "flat_dt";
+		};
 		fdt-qcs9100-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9100-ride.dtb");
 			type = "flat_dt";
@@ -43,6 +59,22 @@
 		};
 		fdt-monaco-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk.dtb");
+			type = "flat_dt";
+		};
+		/*
+		 * Workaround: the kernel does not currently install the raw
+		 * monaco *.dtbo overlays, only the pre-applied composite DTBs
+		 * (base + overlay, applied at build time via fdtoverlay). Use
+		 * those flat DTBs directly so configurations need no .dtbo at
+		 * boot. Drop these once the overlays are installed upstream and
+		 * the configs can reference base + .dtbo again.
+		 */
+		fdt-monaco-evk-camera-imx577.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-camera-imx577.dtb");
+			type = "flat_dt";
+		};
+		fdt-monaco-evk-ifp-mezzanine.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtb");
 			type = "flat_dt";
 		};
 		fdt-qcs615-ride.dtb {
@@ -175,7 +207,7 @@
 		};
 		conf-5 {
 			compatible = "qcom,qcs9075-iot";
-			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camera-csi1-imx577.dtbo";
+			fdt = "fdt-lemans-evk-camera-csi1-imx577.dtb";
 		};
 		conf-6 {
 			compatible = "qcom,qcs9100-qam";
@@ -191,7 +223,7 @@
 		};
 		conf-9 {
 			compatible = "qcom,qcs8275-iot";
-			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-evk-camera-imx577.dtbo";
+			fdt = "fdt-monaco-evk-camera-imx577.dtb";
 		};
 		conf-10 {
 			compatible = "qcom,qcs615-adp";
@@ -315,11 +347,11 @@
 		};
 		conf-40 {
 			compatible = "qcom,qcs9075-iot-subtype1";
-			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-ifp-mezzanine.dtbo";
+			fdt = "fdt-lemans-evk-ifp-mezzanine.dtb";
 		};
 		conf-41 {
 			compatible = "qcom,qcs8275-iot-subtype3";
-			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-evk-ifp-mezzanine.dtbo";
+			fdt = "fdt-monaco-evk-ifp-mezzanine.dtb";
 		};
 		conf-42 {
 			compatible = "qcom,purwa-evk-el2kvm";
