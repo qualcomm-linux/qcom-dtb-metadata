@@ -154,6 +154,9 @@
 		fdt-shikra-iqs-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-iqs-evk.dtb");
 		};
+		fdt-kodiak-el2.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/kodiak-el2.dtbo");
+		};
 	};
 
 	configurations {
@@ -344,6 +347,18 @@
 		conf-47 {
 			compatible = "qcom,shikraiqs-itp";
 			fdt = "fdt-shikra-iqs-evk.dtb";
+		};
+		conf-48 {
+			compatible = "qcom,qcs6490-iot-el2kvm";
+			fdt = "fdt-qcs6490-rb3gen2.dtb", "fdt-kodiak-el2.dtbo";
+		};
+		conf-49 {
+			compatible = "qcom,qcs6490-iot-subtype2-el2kvm";
+			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine.dtb", "fdt-kodiak-el2.dtbo";
+		};
+		conf-50 {
+			compatible = "qcom,qcs6490-iot-subtype9-el2kvm";
+			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-kodiak-el2.dtbo";
 		};
 	};
 };
