@@ -13,7 +13,7 @@
 
 	soc {
 		glymur {
-			msm-id = <0x00000296>;
+			msm-id = <0x000002ba>;
 		};
 
 		hamoa {
