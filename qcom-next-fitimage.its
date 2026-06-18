@@ -226,6 +226,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kaanapali-qrd.dtb");
 			type = "flat_dt";
 		};
+		fdt-glymur-crd-camx.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/glymur-crd-camx.dtbo");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -421,7 +425,7 @@
 			compatible = "qcom,qcs6490-iot-subtype13";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo";
 		};
-        conf-49 {
+		conf-49 {
 			compatible = "qcom,hamoa-evk-camx-el2kvm";
 			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-evk-camx.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-camx-el2.dtbo";
 		};
@@ -452,6 +456,10 @@
 		conf-56 {
 			compatible = "qcom,hamoa-evk-el2kvm-staging";
 			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-staging.dtbo";
+		};
+		conf-57 {
+			compatible = "qcom,glymur-crd-camx";
+			fdt = "fdt-glymur-crd.dtb", "fdt-glymur-crd-camx.dtbo";
 		};
 	};
 };
