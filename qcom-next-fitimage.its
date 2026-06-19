@@ -25,6 +25,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtb");
 			type = "flat_dt";
 		};
+		fdt-qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo");
+			type = "flat_dt";
+		};
 		fdt-lemans-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk.dtb");
 			type = "flat_dt";
@@ -362,10 +366,14 @@
 			fdt = "fdt-shikra-iqs-evk.dtb";
 		};
 		conf-48 {
+			compatible = "qcom,qcs6490-iot-subtype13";
+			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo";
+		};
+    conf-49 {
 			compatible = "qcom,hamoa-evk-el2kvm-camx";
 			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-x1-el2.dtbo", "fdt-hamoa-evk-camx.dtbo", "fdt-hamoa-camx-el2.dtbo";
 		};
-		conf-49 {
+		conf-50 {
 			compatible = "qcom,purwa-evk-el2kvm-camx";
 			fdt = "fdt-purwa-iot-evk.dtb", "fdt-x1-el2.dtbo", "fdt-purwa-evk-camx.dtbo", "fdt-purwa-camx-el2.dtbo";
 		};

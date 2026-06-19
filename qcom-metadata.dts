@@ -207,6 +207,10 @@
 		subtype10 {
 			board-subtype  = <0x0000000a>;
 		};
+
+		subtype13 {
+			board-subtype  = <0x0000000d>;
+		};
 	};
 
 
