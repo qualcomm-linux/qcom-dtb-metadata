@@ -166,6 +166,14 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-camx-el2.dtbo");
 			type = "flat_dt";
 		};
+		fdt-sm8750-mtp.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/sm8750-mtp.dtb");
+			type = "flat_dt";
+		};
+		fdt-sm8750-qrd.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/sm8750-qrd.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -368,6 +376,14 @@
 		conf-50 {
 			compatible = "qcom,purwa-evk-camx-el2kvm";
 			fdt = "fdt-purwa-iot-evk.dtb", "fdt-purwa-evk-camx.dtbo", "fdt-x1-el2.dtbo", "fdt-purwa-camx-el2.dtbo";
+		};
+		conf-51 {
+			compatible = "qcom,sm8750-mtp";
+			fdt = "fdt-sm8750-mtp.dtb";
+		};
+		conf-52 {
+			compatible = "qcom,sm8750-qrd";
+			fdt = "fdt-sm8750-qrd.dtb";
 		};
 	};
 };

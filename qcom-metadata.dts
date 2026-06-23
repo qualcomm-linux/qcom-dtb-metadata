@@ -71,6 +71,10 @@
 		shikraiqs {
 			msm-id = <0x000002f7>;
 		};
+
+		sm8750 {
+			msm-id = <0x0000026a>;
+		};
 	};
 
 	soc-sku {
