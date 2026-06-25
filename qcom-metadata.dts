@@ -13,11 +13,15 @@
 
 	soc {
 		glymur {
-			msm-id = <0x00000296>;
+			msm-id = <0x000002ba>;
 		};
 
 		hamoa {
 			msm-id = <0x000002c5>;
+		};
+
+		kaanapali {
+			msm-id = <0x00000294>;
 		};
 
 		purwa {
@@ -70,6 +74,10 @@
 
 		shikraiqs {
 			msm-id = <0x000002f7>;
+		};
+
+		sm8750 {
+			msm-id = <0x0000026a>;
 		};
 	};
 
@@ -206,6 +214,10 @@
 		
 		subtype10 {
 			board-subtype  = <0x0000000a>;
+		};
+
+		subtype13 {
+			board-subtype  = <0x0000000d>;
 		};
 	};
 

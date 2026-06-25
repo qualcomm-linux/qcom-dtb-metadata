@@ -61,6 +61,22 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-iot-evk.dtb");
 			type = "flat_dt";
 		};
+		fdt-sm8750-mtp.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/sm8750-mtp.dtb");
+			type = "flat_dt";
+		};
+		fdt-sm8750-qrd.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/sm8750-qrd.dtb");
+			type = "flat_dt";
+		};
+		fdt-kaanapali-mtp.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/kaanapali-mtp.dtb");
+			type = "flat_dt";
+		};
+		fdt-kaanapali-qrd.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/kaanapali-qrd.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -115,6 +131,22 @@
 		conf-13 {
 			compatible = "qcom,hamoa-evk";
 			fdt = "fdt-hamoa-iot-evk.dtb";
+		};
+		conf-14 {
+			compatible = "qcom,sm8750-mtp";
+			fdt = "fdt-sm8750-mtp.dtb";
+		};
+		conf-15 {
+			compatible = "qcom,sm8750-qrd";
+			fdt = "fdt-sm8750-qrd.dtb";
+		};
+		conf-16 {
+			compatible = "qcom,kaanapali-mtp";
+			fdt = "fdt-kaanapali-mtp.dtb";
+		};
+		conf-17 {
+			compatible = "qcom,kaanapali-qrd";
+			fdt = "fdt-kaanapali-qrd.dtb";
 		};
 	};
 };

@@ -25,6 +25,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtb");
 			type = "flat_dt";
 		};
+		fdt-qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo");
+			type = "flat_dt";
+		};
 		fdt-lemans-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk.dtb");
 			type = "flat_dt";
@@ -154,8 +158,33 @@
 		fdt-shikra-iqs-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-iqs-evk.dtb");
 		};
-		fdt-kodiak-el2.dtbo {
+		fdt-hamoa-camx-el2.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-camx-el2.dtbo");
+			type = "flat_dt";
+		};
+		fdt-purwa-camx-el2.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-camx-el2.dtbo");
+			type = "flat_dt";
+		};
+		fdt-sm8750-mtp.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/sm8750-mtp.dtb");
+			type = "flat_dt";
+		};
+		fdt-sm8750-qrd.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/sm8750-qrd.dtb");
+			type = "flat_dt";
+		};
+		fdt-kaanapali-mtp.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/kaanapali-mtp.dtb");
+			type = "flat_dt";
+		};
+		fdt-kaanapali-qrd.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/kaanapali-qrd.dtb");
+			type = "flat_dt";
+		};
+    fdt-kodiak-el2.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kodiak-el2.dtbo");
+      type = "flat_dt";
 		};
 	};
 
@@ -348,17 +377,46 @@
 			compatible = "qcom,shikraiqs-itp";
 			fdt = "fdt-shikra-iqs-evk.dtb";
 		};
-		conf-48 {
+    conf-48 {
+			compatible = "qcom,qcs6490-iot-subtype13";
+			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo";
+		};
+    conf-49 {
+			compatible = "qcom,hamoa-evk-camx-el2kvm";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-evk-camx.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-camx-el2.dtbo";
+		};
+		conf-50 {
+			compatible = "qcom,purwa-evk-camx-el2kvm";
+			fdt = "fdt-purwa-iot-evk.dtb", "fdt-purwa-evk-camx.dtbo", "fdt-x1-el2.dtbo", "fdt-purwa-camx-el2.dtbo";
+		};
+		conf-51 {
+			compatible = "qcom,sm8750-mtp";
+			fdt = "fdt-sm8750-mtp.dtb";
+		};
+		conf-52 {
+			compatible = "qcom,sm8750-qrd";
+			fdt = "fdt-sm8750-qrd.dtb";
+		};
+		conf-53 {
+			compatible = "qcom,kaanapali-mtp";
+			fdt = "fdt-kaanapali-mtp.dtb";
+		};
+		conf-54 {
+			compatible = "qcom,kaanapali-qrd";
+			fdt = "fdt-kaanapali-qrd.dtb";
+		};
+    conf-55{
 			compatible = "qcom,qcs6490-iot-el2kvm";
 			fdt = "fdt-qcs6490-rb3gen2.dtb", "fdt-kodiak-el2.dtbo";
 		};
-		conf-49 {
+		conf-56{
 			compatible = "qcom,qcs6490-iot-subtype2-el2kvm";
 			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine.dtb", "fdt-kodiak-el2.dtbo";
 		};
-		conf-50 {
+		conf-57 {
 			compatible = "qcom,qcs6490-iot-subtype9-el2kvm";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-kodiak-el2.dtbo";
 		};
+
 	};
 };
