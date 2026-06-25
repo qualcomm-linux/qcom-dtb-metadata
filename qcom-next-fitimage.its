@@ -381,7 +381,7 @@
 			compatible = "qcom,qcs6490-iot-subtype13";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo";
 		};
-		conf-49 {
+        conf-49 {
 			compatible = "qcom,hamoa-evk-camx-el2kvm";
 			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-evk-camx.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-camx-el2.dtbo";
 		};
