@@ -33,6 +33,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk.dtb");
 			type = "flat_dt";
 		};
+		fdt-lemans-evk-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-el2.dtb");
+			type = "flat_dt";
+		};
 		fdt-qcs9100-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9100-ride.dtb");
 			type = "flat_dt";
@@ -41,16 +45,36 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dtb");
 			type = "flat_dt";
 		};
+		fdt-qcs9100-ride-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9100-ride-el2.dtb");
+			type = "flat_dt";
+		};
+		fdt-qcs9100-ride-r3-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs9100-ride-r3-el2.dtb");
+			type = "flat_dt";
+		};
 		fdt-qcs8300-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs8300-ride.dtb");
+			type = "flat_dt";
+		};
+		fdt-qcs8300-ride-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs8300-ride-el2.dtb");
 			type = "flat_dt";
 		};
 		fdt-monaco-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk.dtb");
 			type = "flat_dt";
 		};
+		fdt-monaco-evk-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-el2.dtb");
+			type = "flat_dt";
+		};
 		fdt-qcs615-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs615-ride.dtb");
+			type = "flat_dt";
+		};
+		fdt-qcs615-ride-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs615-ride-el2.dtb");
 			type = "flat_dt";
 		};
 		fdt-talos-evk.dtb {
@@ -73,8 +97,16 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-iot-evk.dtb");
 			type = "flat_dt";
 		};
+		fdt-hamoa-iot-evk-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-iot-evk-el2.dtb");
+			type = "flat_dt";
+		};
 		fdt-purwa-iot-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-iot-evk.dtb");
+			type = "flat_dt";
+		};
+		fdt-purwa-iot-evk-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-iot-evk-el2.dtb");
 			type = "flat_dt";
 		};
 		fdt-glymur-crd.dtb {
@@ -85,8 +117,16 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-camx.dtbo");
 			type = "flat_dt";
 		};
+		fdt-lemans-camx-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-camx-el2.dtb");
+			type = "flat_dt";
+		};
 		fdt-monaco-evk-camx.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-camx.dtbo");
+			type = "flat_dt";
+		};
+		fdt-monaco-camx-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-camx-el2.dtb");
 			type = "flat_dt";
 		};
 		fdt-qcs8300-ride-camx.dtbo {
@@ -287,15 +327,15 @@
 		};
 		conf-25 {
 			compatible = "qcom,qcs9100-qam-el2kvm";
-			fdt = "fdt-qcs9100-ride-r3.dtb", "fdt-lemans-el2.dtbo";
+			fdt = "fdt-qcs9100-ride-r3-el2.dtb";
 		};
 		conf-26 {
 			compatible = "qcom,qcs9100-qam-r1.0-el2kvm";
-			fdt = "fdt-qcs9100-ride.dtb", "fdt-lemans-el2.dtbo";
+			fdt = "fdt-qcs9100-ride-el2.dtb";
 		};
 		conf-27 {
 			compatible = "qcom,qcs9075-iot-camx-el2kvm";
-			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-el2.dtbo", "fdt-lemans-camx-el2.dtbo";
+			fdt = "fdt-lemans-camx-el2.dtb";
 		};
 		conf-28 {
 			compatible = "qcom,purwa-evk";
@@ -319,7 +359,7 @@
 		};
 		conf-33 {
 			compatible = "qcom,qcs8300-adp-el2kvm";
-			fdt = "fdt-qcs8300-ride.dtb", "fdt-monaco-el2.dtbo";
+			fdt = "fdt-qcs8300-ride-el2.dtb";
 		};
 		conf-34 {
 			compatible = "qcom,qcs8275-iot-el2kvm";
@@ -327,7 +367,7 @@
 		};
 		conf-35 {
 			compatible = "qcom,qcs8275-iot-camx-el2kvm";
-			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-evk-camx.dtbo", "fdt-monaco-el2.dtbo", "fdt-monaco-camx-el2.dtbo";
+			fdt = "fdt-monaco-camx-el2.dtb";
 		};
 		conf-36 {
 			compatible = "qcom,qcs8300-adp-camx-el2kvm";
@@ -339,7 +379,7 @@
 		};
 		conf-38 {
 			compatible = "qcom,qcs615-adp-el2kvm";
-			fdt = "fdt-qcs615-ride.dtb", "fdt-talos-el2.dtbo";
+			fdt = "fdt-qcs615-ride-el2.dtb";
 		};
 		conf-39 {
 			compatible = "qcom,hamoa-evk-el2kvm";
@@ -355,7 +395,7 @@
 		};
 		conf-42 {
 			compatible = "qcom,purwa-evk-el2kvm";
-			fdt = "fdt-purwa-iot-evk.dtb", "fdt-x1-el2.dtbo";
+			fdt = "fdt-purwa-iot-evk-el2.dtb";
 		};
 		conf-43 {
 			compatible = "qcom,hamoa-evk-camx";
