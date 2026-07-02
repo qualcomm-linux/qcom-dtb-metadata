@@ -377,8 +377,11 @@ cp "${SCRIPT_DIR}/${DEFAULT_ITS_FILE}" "${FIT_STAGE}/${DEFAULT_ITS_FILE}"
 #
 # For every image entry whose /incbin/ DTB/DTBO is absent from the staged
 # source, the entry is dropped.  Any configuration referencing a dropped
-# label is also dropped.  The staged ITS is overwritten in-place so that
+# label is also dropped. The staged ITS is overwritten in-place so that
 # Step 4 (mkimage) sees the reduced file.
+# fdt label is also dropped. Remaining configurations are
+# renumbered sequentially (conf-1, conf-2, …) to close any gaps left by
+# dropped entries.
 # -----------------------------------------------------------------------
 if (( PRUNE )); then
     echo "[INFO] --prune: rewriting ITS to include only DTBs present in source..."
@@ -390,18 +393,21 @@ if (( PRUNE )); then
     awk '
 NR == FNR { avail_dtbs[$1] = 1; next }
 BEGIN { avail_labels["fdt-qcom-metadata.dtb"] = 1
-        in_block=0; skip_block=0; is_conf=0; buf=""; cur_label="" }
+        in_block=0; skip_block=0; is_conf=0; buf=""; cur_label=""
+        cur_compat=""; conf_counter=0 }
 /^\t\tfdt-[^ ]+ \{$/ {
     in_block=1; is_conf=0; skip_block=0; cur_label=$1; buf=$0"\n"; next }
-/^\t\tconf-[0-9]+ \{$/ {
-    in_block=1; is_conf=1; skip_block=0; buf=$0"\n"; next }
+/^[[:space:]]+conf-[0-9]+ \{$/ {
+    in_block=1; is_conf=1; skip_block=0; cur_compat=""; buf=$0"\n"; next }
 in_block {
     buf=buf $0"\n"
+    if (is_conf && /compatible =/) {
+        match($0, /"[^"]+"/); cur_compat=substr($0,RSTART+1,RLENGTH-2) }
     if (!is_conf && /\/incbin\//) {
         if (!(cur_label in avail_labels)) {
             split($0,q,"\""); n=split(q[2],p,"/"); dtb=p[n]
             if (dtb in avail_dtbs) avail_labels[cur_label]=1
-            else { skip_block=1; print "[WARN] --prune: dropped: "dtb >"/dev/stderr" }
+            else { skip_block=1; print "[WARN] --prune: dropped fdt: "dtb >"/dev/stderr" }
         }
     }
     if (is_conf && /fdt =/) {
@@ -413,8 +419,16 @@ in_block {
         }
     }
     if (/^\t\t\};$/) {
-        if (!skip_block) printf "%s",buf
-        in_block=0; buf=""; skip_block=0; is_conf=0; cur_label=""
+        if (!skip_block) {
+            if (is_conf) {
+                conf_counter++
+                sub(/conf-[0-9]+/, "conf-" conf_counter, buf)
+            }
+            sub(/\n$/, "", buf); print buf
+        } else if (is_conf) {
+            print "[WARN] --prune: dropped conf (compatible=\"" cur_compat "\"): missing DTB(s)" >"/dev/stderr"
+        }
+        in_block=0; buf=""; skip_block=0; is_conf=0; cur_label=""; cur_compat=""
     }
     next
 }
@@ -434,6 +448,10 @@ in_block {
     echo "[INFO] Remaining ITS image entries:"
     grep -P $'^\t\tfdt-' "${FIT_STAGE}/${DEFAULT_ITS_FILE}" | \
         sed 's/^[[:space:]]*/        /' || true
+    echo "[INFO] Dropped conf entries:"
+    grep -o 'compatible = "[^"]*"' "${SCRIPT_DIR}/${DEFAULT_ITS_FILE}" | \
+        grep -vxF -f <(grep -o 'compatible = "[^"]*"' "${FIT_STAGE}/${DEFAULT_ITS_FILE}") | \
+        sed 's/compatible = "//;s/"$//;s/^/        /' || true
 
     unset _pruned_its
 fi
