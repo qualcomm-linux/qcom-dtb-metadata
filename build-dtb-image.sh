@@ -121,11 +121,14 @@ FIT_WORK_DIR=""        # Temporary staging directory for FIT build artefacts
 # ITS file used for FIT image generation — must exist in SCRIPT_DIR.
 DEFAULT_ITS_FILE="qcom-next-fitimage.its"
 
+SOC_FILTER=""          # Optional: SOC name to filter configurations
+BOARD_FILTER=""        # Optional: board name to further filter configurations
+
 # ---------------------------- Helper Functions -------------------------------
 
 usage() {
     cat <<EOF
-Usage: $0 (--kernel-deb <kernel.deb> | --dtb-src <path>) [--size <MB>] [--out <file>]
+Usage: $0 (--kernel-deb <kernel.deb> | --dtb-src <path>) [--soc <soc>] [--board <board>] [--size <MB>] [--out <file>]
 
   --kernel-deb, -kernel-deb  Path to Debian kernel package (.deb). DTBs located by probing:
                              1. <extract>/usr/lib/linux-image-*/        (Debian standard)
@@ -138,6 +141,19 @@ Usage: $0 (--kernel-deb <kernel.deb> | --dtb-src <path>) [--size <MB>] [--out <f
 
   --fit-image, -fit-image    Accepted for backward compatibility; FIT image
                              mode is the default and only mode (no-op).
+
+  --soc,       -soc          (Optional) SOC name to filter configurations.
+                             Must be a subnode name under /soc in qcom-metadata.dts
+                             (e.g. qcs8275, qcs6490, sa8775p, hamoa, glymur).
+                             Matched as a case-insensitive substring of each conf's
+                             compatible string.
+
+  --board,     -board        (Optional, requires --soc) Board name to further filter.
+                             Must be a subnode name under /board in qcom-metadata.dts
+                             (e.g. iot, evk, idp, qam, adp).
+                             Matched as a case-insensitive substring of the compatible
+                             strings already selected by --soc.
+                             Error if no --soc-selected conf contains the board name.
 
   --size,      -size         FAT image size in MB (default: 4)
 
@@ -153,6 +169,127 @@ Notes:
   - Metadata files (ITS, DTS) are read from: ${SCRIPT_DIR}
 EOF
     exit 1
+}
+
+# Parse subnode names from a top-level node in qcom-metadata.dts.
+# Usage: get_dts_subnodes <dts_file> <node_name>
+# Prints one name per line.
+get_dts_subnodes() {
+    local dts_file="$1"
+    local node_name="$2"
+    awk -v node="${node_name}" '
+        $0 ~ "^\t" node "[[:space:]]*\\{" { in_node=1; next }
+        in_node && /^\t\t[a-z]/ {
+            match($0, /[a-z][a-z0-9-]*/); print substr($0, RSTART, RLENGTH)
+        }
+        in_node && /^\t\};/ { exit }
+    ' "${dts_file}"
+}
+
+# filter_its <its_file> <soc_filter> [board_filter]
+#
+# Reads the ITS file and emits a filtered images{} + configurations{} block.
+# Configurations are kept when their compatible string contains soc_filter
+# (case-insensitive substring).  If board_filter is also given, the compatible
+# must additionally contain board_filter as a substring (order-independent).
+# The fdt-qcom-metadata.dtb image entry is always retained.
+filter_its() {
+    local its_file="$1"
+    local soc="$2"
+    local board="${3:-}"
+
+    awk -v soc="${soc}" -v board="${board}" '
+BEGIN {
+    in_images   = 0; in_confs    = 0; in_block    = 0
+    brace_depth = 0; block_buf   = ""; block_label = ""
+    block_compat= ""; img_count  = 0; conf_count  = 0
+    soc_lower   = tolower(soc); board_lower = tolower(board)
+    seen_images = 0
+}
+/^[[:space:]]*images[[:space:]]*\{/ { seen_images = 1 }
+!seen_images { next }
+/^[[:space:]]*images[[:space:]]*\{/ && !in_block {
+    in_images = 1; in_confs = 0; next
+}
+/^[[:space:]]*configurations[[:space:]]*\{/ && !in_block {
+    in_confs = 1; in_images = 0; next
+}
+/^\t\};$/ && !in_block { in_images = 0; in_confs = 0; next }
+in_images && !in_block && /^\t\t[^ ]/ {
+    match($0, /[^\t ]+/)
+    block_label = substr($0, RSTART, RLENGTH)
+    in_block = 1; brace_depth = 1; block_buf = $0 "\n"; next
+}
+in_images && in_block {
+    block_buf = block_buf $0 "\n"
+    n = split($0, chars, "")
+    for (i = 1; i <= n; i++) {
+        if (chars[i] == "{") brace_depth++
+        if (chars[i] == "}") brace_depth--
+    }
+    if (brace_depth == 0) {
+        img_blocks[block_label] = block_buf; img_count++
+        in_block = 0; block_buf = ""; block_label = ""
+    }
+    next
+}
+in_confs && !in_block && /^\t\tconf-[0-9]/ {
+    in_block = 1; brace_depth = 1; block_buf = $0 "\n"; block_compat = ""; next
+}
+in_confs && in_block {
+    block_buf = block_buf $0 "\n"
+    if ($0 ~ /compatible[[:space:]]*=/) {
+        match($0, /"[^"]+"/)
+        block_compat = substr($0, RSTART+1, RLENGTH-2)
+    }
+    n = split($0, chars, "")
+    for (i = 1; i <= n; i++) {
+        if (chars[i] == "{") brace_depth++
+        if (chars[i] == "}") brace_depth--
+    }
+    if (brace_depth == 0) {
+        compat_lower = tolower(block_compat)
+        soc_match   = (index(compat_lower, soc_lower) > 0)
+        board_match = (board_lower == "" || index(compat_lower, board_lower) > 0)
+        if (soc_match && board_match) {
+            conf_count++
+            conf_blocks[conf_count] = block_buf
+            tmp = block_buf
+            while (match(tmp, /"fdt-[^"]+"/) > 0) {
+                needed_fdts[substr(tmp, RSTART+1, RLENGTH-2)] = 1
+                tmp = substr(tmp, RSTART + RLENGTH)
+            }
+        }
+        in_block = 0; block_buf = ""; block_compat = ""
+    }
+    next
+}
+END {
+    if (conf_count == 0) {
+        if (board_lower != "")
+            print "[ERROR] No configurations matched SOC=\"" soc "\" BOARD=\"" board "\"" > "/dev/stderr"
+        else
+            print "[ERROR] No configurations matched SOC filter: " soc > "/dev/stderr"
+        exit 1
+    }
+    print "\timages {"
+    if ("fdt-qcom-metadata.dtb" in img_blocks)
+        printf "%s", img_blocks["fdt-qcom-metadata.dtb"]
+    for (lbl in img_blocks) {
+        if (lbl == "fdt-qcom-metadata.dtb") continue
+        if (lbl in needed_fdts) printf "%s", img_blocks[lbl]
+    }
+    print "\t};"
+    print ""
+    print "\tconfigurations {"
+    for (i = 1; i <= conf_count; i++) {
+        blk = conf_blocks[i]
+        sub(/conf-[0-9]+[[:space:]]*\{/, "conf-" i " {", blk)
+        printf "%s", blk
+    }
+    print "\t};"
+}
+' "${its_file}"
 }
 
 require_cmd() {
@@ -207,6 +344,14 @@ while [[ $# -gt 0 ]]; do
             PRUNE=1
             shift 1
             ;;
+        -soc|--soc)
+            SOC_FILTER="${2:-}"
+            shift 2
+            ;;
+        -board|--board)
+            BOARD_FILTER="${2:-}"
+            shift 2
+            ;;
         -h|--help)
             usage
             ;;
@@ -232,6 +377,30 @@ fi
 if ! [[ "${DTB_BIN_SIZE}" =~ ^[0-9]+$ ]] || (( DTB_BIN_SIZE <= 0 )); then
     echo "[ERROR] --size must be a positive integer (MB), got '${DTB_BIN_SIZE}'." >&2
     exit 1
+fi
+
+# Validate --soc and --board against qcom-metadata.dts subnodes
+if [[ -n "${BOARD_FILTER}" && -z "${SOC_FILTER}" ]]; then
+    echo "[ERROR] --board requires --soc to be specified as well." >&2
+    exit 1
+fi
+
+if [[ -n "${SOC_FILTER}" ]]; then
+    valid_socs=$(get_dts_subnodes "${SCRIPT_DIR}/qcom-metadata.dts" "soc")
+    if ! echo "${valid_socs}" | grep -qx "${SOC_FILTER}"; then
+        echo "[ERROR] Invalid --soc '${SOC_FILTER}'. Valid SOC names (from /soc in qcom-metadata.dts):" >&2
+        echo "${valid_socs}" | sed 's/^/        /' >&2
+        exit 1
+    fi
+fi
+
+if [[ -n "${BOARD_FILTER}" ]]; then
+    valid_boards=$(get_dts_subnodes "${SCRIPT_DIR}/qcom-metadata.dts" "board")
+    if ! echo "${valid_boards}" | grep -qx "${BOARD_FILTER}"; then
+        echo "[ERROR] Invalid --board '${BOARD_FILTER}'. Valid board names (from /board in qcom-metadata.dts):" >&2
+        echo "${valid_boards}" | sed 's/^/        /' >&2
+        exit 1
+    fi
 fi
 
 # Validate that required metadata files are present in the repository
@@ -368,9 +537,32 @@ echo "[INFO] qcom-metadata.dtb generated:"
 ls -lh "${FIT_STAGE}/qcom-metadata.dtb"
 
 # -----------------------------------------------------------------------
-# Step 3. Copy ITS file into the staging directory
+# Step 3. Copy or filter ITS file into the staging directory
 # -----------------------------------------------------------------------
-cp "${SCRIPT_DIR}/${DEFAULT_ITS_FILE}" "${FIT_STAGE}/${DEFAULT_ITS_FILE}"
+if [[ -n "${SOC_FILTER}" ]]; then
+    _filter_desc="SOC='${SOC_FILTER}'"
+    [[ -n "${BOARD_FILTER}" ]] && _filter_desc+=" BOARD='${BOARD_FILTER}'"
+    echo "[INFO] Generating filtered ITS (${_filter_desc})..."
+
+    header_lines=$(awk '/^[[:space:]]*images[[:space:]]*\{/{print NR-1; exit}'         "${SCRIPT_DIR}/${DEFAULT_ITS_FILE}")
+    head -n "${header_lines}" "${SCRIPT_DIR}/${DEFAULT_ITS_FILE}"         > "${FIT_STAGE}/${DEFAULT_ITS_FILE}"
+
+    filter_its "${SCRIPT_DIR}/${DEFAULT_ITS_FILE}" "${SOC_FILTER}" "${BOARD_FILTER}"         >> "${FIT_STAGE}/${DEFAULT_ITS_FILE}"
+
+    echo "};" >> "${FIT_STAGE}/${DEFAULT_ITS_FILE}"
+
+    echo "[INFO] Selected configurations:"
+    awk '
+/^		conf-[0-9]+ \{/{in_conf=1}
+in_conf && /compatible/{match($0,/"[^"]+"/); print "        " substr($0,RSTART+1,RLENGTH-2)}
+in_conf && /^		\};/{in_conf=0}
+' "${FIT_STAGE}/${DEFAULT_ITS_FILE}"
+
+    unset _filter_desc
+else
+    echo "[INFO] Using full ITS (all configurations)."
+    cp "${SCRIPT_DIR}/${DEFAULT_ITS_FILE}" "${FIT_STAGE}/${DEFAULT_ITS_FILE}"
+fi
 
 # -----------------------------------------------------------------------
 # Step 3b. Prune ITS (only when --prune is given)
