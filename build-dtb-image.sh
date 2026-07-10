@@ -603,7 +603,7 @@ NR == FNR { avail_dtbs[$1] = 1; next }
 BEGIN { avail_labels["fdt-qcom-metadata.dtb"] = 1
         in_block=0; skip_block=0; is_conf=0; buf=""; cur_label=""
         cur_compat=""; conf_counter=0 }
-/^\t\tfdt-[^ ]+ \{$/ {
+/^[[:space:]]+fdt-[^ ]+ \{$/ {
     in_block=1; is_conf=0; skip_block=0; cur_label=$1; buf=$0"\n"; next }
 /^[[:space:]]+conf-[0-9]+ \{$/ {
     in_block=1; is_conf=1; skip_block=0; cur_compat=""; buf=$0"\n"; next }
@@ -626,7 +626,7 @@ in_block {
             tmp=substr(tmp,RSTART+RLENGTH)
         }
     }
-    if (/^\t\t\};$/) {
+    if (/^[[:space:]]+\};$/) {
         if (!skip_block) {
             if (is_conf) {
                 conf_counter++
@@ -654,7 +654,7 @@ in_block {
     mv "${_pruned_its}" "${FIT_STAGE}/${DEFAULT_ITS_FILE}"
     echo "[INFO] --prune: ITS rewritten successfully."
     echo "[INFO] Remaining ITS image entries:"
-    grep -P $'^\t\tfdt-' "${FIT_STAGE}/${DEFAULT_ITS_FILE}" | \
+    grep -P "^[[:space:]]+fdt-" "${FIT_STAGE}/${DEFAULT_ITS_FILE}" | \
         sed 's/^[[:space:]]*/        /' || true
     echo "[INFO] Dropped conf entries:"
     grep -o 'compatible = "[^"]*"' "${SCRIPT_DIR}/${DEFAULT_ITS_FILE}" | \
