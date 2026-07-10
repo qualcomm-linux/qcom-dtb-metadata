@@ -184,7 +184,7 @@
 		fdt-hamoa-staging.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-staging.dtbo");
 			type = "flat_dt";
-		}; 
+		};
 		fdt-hamoa-evk-camx.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-evk-camx.dtbo");
 			type = "flat_dt";
