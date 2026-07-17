@@ -233,7 +233,11 @@
 		fdt-kodiak-el2.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kodiak-el2.dtbo");
      		type = "flat_dt";
-    	};
+		};
+		fdt-sa8797p-ride.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/sa8797p-ride.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -476,6 +480,14 @@
 		conf-60 {
 			compatible = "qcom,qcs6490-iot-subtype9-el2kvm";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-kodiak-el2.dtbo";
+		};
+		conf-61 {
+			compatible = "qcom,qam8x97p-qam";
+			fdt = "fdt-sa8797p-ride.dtb";
+		};
+		conf-62 {
+			compatible = "qcom,nord-qam";
+			fdt = "fdt-sa8797p-ride.dtb";
 		};
 	};
 };
