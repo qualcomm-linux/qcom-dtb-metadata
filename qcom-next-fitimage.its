@@ -233,11 +233,11 @@
 		fdt-kodiak-el2.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kodiak-el2.dtbo");
      		type = "flat_dt";
-    	};
-		fdt-nord-ride.dtb {
+		};
+		fdt-sa8797p-ride.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/sa8797p-ride.dtb");
-     			type = "flat_dt";
-    		};
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -483,11 +483,11 @@
 		};
 		conf-61 {
 			compatible = "qcom,qam8x97p-qam";
-			fdt = "fdt-nord-ride.dtb";
+			fdt = "fdt-sa8797p-ride.dtb";
 		};
 		conf-62 {
 			compatible = "qcom,nord-qam";
-			fdt = "fdt-nord-ride.dtb";
+			fdt = "fdt-sa8797p-ride.dtb";
 		};
 	};
 };
