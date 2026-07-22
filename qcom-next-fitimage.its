@@ -232,8 +232,12 @@
 		};
 		fdt-kodiak-el2.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kodiak-el2.dtbo");
-     		type = "flat_dt";
-    	};
+			type = "flat_dt";
+		};
+		fdt-purwa-staging.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-staging.dtbo");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -476,6 +480,14 @@
 		conf-60 {
 			compatible = "qcom,qcs6490-iot-subtype9-el2kvm";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-kodiak-el2.dtbo";
+		};
+		conf-61 {
+			compatible = "qcom,purwa-evk-staging";
+			fdt = "fdt-purwa-iot-evk.dtb", "fdt-purwa-staging.dtbo";
+		};
+		conf-62 {
+			compatible = "qcom,purwa-evk-el2kvm-staging";
+			fdt = "fdt-purwa-iot-evk.dtb", "fdt-x1-el2.dtbo", "fdt-purwa-staging.dtbo";
 		};
 	};
 };
