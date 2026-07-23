@@ -17,17 +17,22 @@ set -euo pipefail
 #      - Applies a whitelist (BLACKLIST_SKIP_PATTERNS) for specific failures.
 #   5. LINKAGE CHECK: Ensures every 'fdt' entry in a configuration exactly
 #      matches a defined node name in the '/images' section.
+#   6. PLATFORM YAML CHECK: Verifies every 'compatible' string in the ITS has
+#      a corresponding entry in qcom-platform.yaml. Fails with a clear message
+#      identifying the missing compatible and the soc_family it should belong to.
 #
 # USAGE:
-#   ./check-fitimage-metadata.sh [its_file] [metadata_file]
+#   ./check-fitimage-metadata.sh [its_file] [metadata_file] [platform_yaml]
 # -----------------------------------------------------------------------------
 
 # Optional positional arguments:
 #   $1 -> ITS file (qcom-fitimage.its)
 #   $2 -> META file (qcom-metadata.dts)
+#   $3 -> Platform YAML (qcom-platform.yaml)
 
 ITS_FILE="${1:-qcom-fitimage.its}"
 META_FILE="${2:-qcom-metadata.dts}"
+PLATFORM_YAML="${3:-qcom-platform.yaml}"
 
 # -----------------------------------------------------------------------------
 # CONFIGURATION
@@ -321,6 +326,122 @@ if [[ "$missing_any" -ne 0 ]]; then
     echo "FAILED: One or more checks failed."
     exit 2
 fi
+
+###############################################################################
+# 5. PLATFORM YAML CHECK
+###############################################################################
+# For every 'compatible' string found in the ITS configurations block,
+# verify it exists in qcom-platform.yaml. If a compatible is missing,
+# fail with a message identifying which soc_family it most likely belongs to,
+# so the contributor knows exactly where to add the entry.
+check_platform_yaml() {
+    if [[ ! -f "${PLATFORM_YAML}" ]]; then
+        echo "warn  [PLATFORM-YAML] ${PLATFORM_YAML} not found — skipping platform YAML check."
+        return 0
+    fi
+
+    if ! command -v python3 >/dev/null 2>&1; then
+        echo "warn  [PLATFORM-YAML] python3 not available — skipping platform YAML check."
+        return 0
+    fi
+
+    python3 - "${ITS_FILE}" "${PLATFORM_YAML}" << 'PYEOF'
+import sys, re, yaml
+
+its_file    = sys.argv[1]
+yaml_file   = sys.argv[2]
+
+# --- collect all compatible strings from ITS configurations block ---
+# Use brace-depth tracking so nested conf-N closing braces do not
+# prematurely end the configurations block scan.
+its_compats = []
+in_configs  = False
+depth       = 0
+with open(its_file) as f:
+    for line in f:
+        stripped = line.strip()
+        if not in_configs:
+            if re.search(r'configurations\s*\{', stripped):
+                in_configs = True
+                depth = 1
+            continue
+        depth += stripped.count('{') - stripped.count('}')
+        if depth <= 0:
+            in_configs = False
+            continue
+        if stripped.startswith('compatible'):
+            m = re.search(r'"([^"]+)"', stripped)
+            if m:
+                its_compats.append(m.group(1))
+
+# --- build lookup: compatible -> soc_family from YAML ---
+data = yaml.safe_load(open(yaml_file))
+yaml_compat_to_family = {}
+for platform in data['platforms']:
+    family = platform['soc_family']
+    for board in platform['boards']:
+        for compat in board['compatible']:
+            yaml_compat_to_family[compat] = family
+
+# --- infer likely soc_family for an unknown compatible ---
+# Strategy: match the SoC token (first segment after "qcom,") against
+# soc_details entries (case-insensitive) across all families.
+soc_to_family = {}
+for platform in data['platforms']:
+    family = platform['soc_family']
+    for soc in platform['soc_details']:
+        soc_to_family[soc.lower()] = family
+
+def infer_family(compat):
+    # strip "qcom," prefix, then try progressively shorter prefixes
+    token = compat.removeprefix('qcom,')
+    parts = re.split(r'[-_]', token)
+    # try longest-first prefix matches against known soc names
+    for length in range(len(parts), 0, -1):
+        candidate = ''.join(parts[:length]).lower()
+        if candidate in soc_to_family:
+            return soc_to_family[candidate]
+    # fallback: substring search
+    for soc, family in soc_to_family.items():
+        if soc in token.lower():
+            return family
+    return None
+
+failures = []
+for compat in its_compats:
+    if compat not in yaml_compat_to_family:
+        suggested_family = infer_family(compat)
+        failures.append((compat, suggested_family))
+
+if failures:
+    print()
+    print("fail  [PLATFORM-YAML] The following compatible string(s) in the ITS have no")
+    print("      corresponding entry in qcom-platform.yaml:")
+    print()
+    for compat, family in failures:
+        print(f"        compatible: \"{compat}\"")
+        if family:
+            print(f"        → Please add this entry under soc_family: '{family}' in qcom-platform.yaml")
+        else:
+            print(f"        → Could not infer soc_family — refer to IPCAT to identify the correct")
+            print(f"          soc_family, then add a new entry in qcom-platform.yaml.")
+        print()
+    print("      Every compatible string added to qcom-next-fitimage.its must have a")
+    print("      matching board entry (with compatible, soc, board, dtb fields) in")
+    print("      qcom-platform.yaml under the appropriate soc_family.")
+    print("      To identify the correct soc_family, refer to IPCAT.")
+    sys.exit(1)
+
+print(f"Platform YAML Check: Pass ({len(its_compats)} compatible(s) verified against {yaml_file})")
+sys.exit(0)
+PYEOF
+}
+
+check_platform_yaml
+if [[ $? -ne 0 ]]; then
+    missing_any=1
+fi
+
 
 echo "success"
 exit 0

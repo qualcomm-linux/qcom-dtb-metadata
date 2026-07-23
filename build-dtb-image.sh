@@ -54,7 +54,7 @@
 # Usage:
 #   ./build-dtb-image.sh \
 #       (--kernel-deb <path/to/kernel.deb> | --dtb-src <path/to/dtb/dir>) \
-#       [--size <MB>] [--out <file>]
+#       [--size <MB>] [--out <file>] [--family <soc-family>]
 #
 # ─────────────────────────────────────────────────────────────────────────────
 # Arguments:
@@ -123,6 +123,8 @@ DEFAULT_ITS_FILE="qcom-next-fitimage.its"
 
 SOC_FILTER=()          # Optional: one or more SOC names to filter configurations
 BOARD_FILTER=()        # Optional: one or more board names to further filter configurations
+FAMILY_FILTER=""       # Optional: SoC family name (expands to all its SOC variants)
+PLATFORM_DATA="${SCRIPT_DIR}/qcom-platform.yaml"  # Family → SOC mapping source
 
 # ---------------------------- Helper Functions -------------------------------
 
@@ -157,6 +159,13 @@ Usage: $0 (--kernel-deb <kernel.deb> | --dtb-src <path>) [--soc <soc>...] [--boa
                              given board names as a substring.
                              Multiple values: --board iot evk
                              Error if no --soc-selected conf matches any board name.
+
+  --family,    -family       (Optional) SoC family name from qcom-platform.yaml
+                             (e.g. Kodiak, Lemans, Monaco, Shikra).
+                             Expands to all SOC variants in that family and is
+                             equivalent to passing each variant with --soc.
+                             Cannot be combined with --soc.
+                             Error if the family name is not found in qcom-platform.yaml.
 
   --size,      -size         FAT image size in MB (default: 4)
 
@@ -362,6 +371,10 @@ while [[ $# -gt 0 ]]; do
                 BOARD_FILTER+=("$1"); shift
             done
             ;;
+        -family|--family)
+            FAMILY_FILTER="${2:-}"
+            shift 2
+            ;;
         -h|--help)
             usage
             ;;
@@ -387,6 +400,53 @@ fi
 if ! [[ "${DTB_BIN_SIZE}" =~ ^[0-9]+$ ]] || (( DTB_BIN_SIZE <= 0 )); then
     echo "[ERROR] --size must be a positive integer (MB), got '${DTB_BIN_SIZE}'." >&2
     exit 1
+fi
+
+# Resolve --family into SOC_FILTER entries via qcom-platform.yaml
+if [[ -n "${FAMILY_FILTER}" ]]; then
+    if [[ -n "${SOC_FILTER[*]+"${SOC_FILTER[*]}"}" ]]; then
+        echo "[ERROR] --family and --soc are mutually exclusive." >&2
+        exit 1
+    fi
+    if [[ ! -f "${PLATFORM_DATA}" ]]; then
+        echo "[ERROR] qcom-platform.yaml not found at: ${PLATFORM_DATA}" >&2
+        exit 1
+    fi
+    # Collect all valid family names for validation
+    mapfile -t _all_families < <(python3 -c "
+import yaml
+d = yaml.safe_load(open('${PLATFORM_DATA}'))
+for p in d['platforms']:
+    print(p['soc_family'])
+")
+    # Find a case-insensitive match
+    _matched_family=""
+    for _f in "${_all_families[@]}"; do
+        if [[ "${_f,,}" == "${FAMILY_FILTER,,}" ]]; then
+            _matched_family="${_f}"
+            break
+        fi
+    done
+    if [[ -z "${_matched_family}" ]]; then
+        echo "[ERROR] Unknown --family '${FAMILY_FILTER}'." >&2
+        echo "        Valid families listed in qcom-platform.yaml:" >&2
+        for _f in "${_all_families[@]}"; do
+            echo "          ${_f}" >&2
+        done
+        exit 1
+    fi
+    # Expand family to its soc_details and populate SOC_FILTER
+    mapfile -t _family_socs < <(python3 -c "
+import yaml
+d = yaml.safe_load(open('${PLATFORM_DATA}'))
+for p in d['platforms']:
+    if p['soc_family'].lower() == '${_matched_family,,}':
+        for s in p['soc_details']:
+            print(s.lower())
+        break
+")
+    echo "[INFO] --family '${_matched_family}' expands to SOCs: ${_family_socs[*]}"
+    SOC_FILTER+=("${_family_socs[@]}")
 fi
 
 # Validate --soc and --board against qcom-metadata.dts subnodes
@@ -673,6 +733,28 @@ fi
 #   #define FIT_BINARY_FILE    L"\\qclinux_fit.img"
 #   #define COMBINED_DTB_FILE  L"\\combined-dtb.dtb"
 #   #define SECONDARY_DTB_FILE L"\\secondary-dtb.dtb"
+# -----------------------------------------------------------------------
+# Step 4a. Pre-flight: verify every /incbin/ DTB referenced in the ITS
+# exists in the staging directory before invoking mkimage.  mkimage emits
+# a FATAL ERROR and exits non-zero when a file is missing, but the error
+# message is cryptic; this check produces a clear, actionable diagnostic.
+# -----------------------------------------------------------------------
+echo "[INFO] Verifying all /incbin/ DTB paths referenced in ITS..."
+_missing_dtbs=0
+while IFS= read -r _incbin_path; do
+    _full="${FIT_STAGE}/${_incbin_path}"
+    if [[ ! -f "${_full}" ]]; then
+        echo "[ERROR] DTB referenced in ITS not found in staged tree: ${_incbin_path}" >&2
+        _missing_dtbs=1
+    fi
+done < <(grep -oP '(?<=/incbin/\(")[^"]+(?="\))' "${FIT_STAGE}/${DEFAULT_ITS_FILE}")
+if (( _missing_dtbs )); then
+    echo "[ERROR] One or more DTBs listed in the ITS are missing from the kernel build." >&2
+    echo "        Add the missing DTB(s) to the kernel source before updating the ITS." >&2
+    exit 1
+fi
+echo "[INFO] All /incbin/ DTB paths verified."
+# -----------------------------------------------------------------------
 mkdir -p "${FIT_STAGE}/out"
 echo "[INFO] Running mkimage to generate qclinux_fit.img..."
 (

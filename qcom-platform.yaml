@@ -1,0 +1,259 @@
+platforms:
+- soc_family: Kodiak
+  soc_details:
+  - QCM6490
+  - QCS6490
+  - QCS5430
+  boards:
+  - name: QCM6490 IDP
+    soc: QCM6490
+    board: IDP
+    dtb:
+    - qcm6490-idp.dtb
+    compatible:
+    - qcom,qcm6490-idp
+  - name: QCS6490 IOT RB3 Gen2
+    soc: QCS6490
+    board: RB3 Gen2
+    dtb:
+    - qcs6490-rb3gen2.dtb
+    compatible:
+    - qcom,qcs6490-iot
+    - qcom,qcs5430-iot
+    - qcom,qcs6490-iot-el2kvm
+  - name: QCS6490 IOT Vision kit
+    soc: QCS6490
+    board: RB3 Gen2 + Vision Mezzanine
+    dtb:
+    - qcs6490-rb3gen2-vision-mezzanine.dtb
+    compatible:
+    - qcom,qcs6490-iot-subtype2
+    - qcom,qcs5430-iot-subtype2
+    - qcom,qcs6490-iot-subtype2-el2kvm
+  - name: QCS6490 IOT Industrial kit
+    soc: QCS6490
+    board: RB3 Gen2 + Industrial Mezzanine
+    dtb:
+    - qcs6490-rb3gen2-industrial-mezzanine.dtb
+    compatible:
+    - qcom,qcs6490-iot-subtype9
+    - qcom,qcs5430-iot-subtype9
+    - qcom,qcs6490-iot-subtype13
+    - qcom,qcs6490-iot-subtype9-el2kvm
+- soc_family: Lemans
+  soc_details:
+  - QCS9075
+  - QCS9075v2
+  - QCS9100
+  - QCS9100v2
+  - SA8775P
+  - SA8775Pv2
+  boards:
+  - name: QCS9075 IOT (Lemans EVK, rb8)
+    soc: QCS9075
+    board: Lemans EVK
+    dtb:
+    - lemans-camx-el2.dtb
+    - lemans-evk.dtb
+    compatible:
+    - qcom,qcs9075-iot
+    - qcom,qcs9075-iot-camx
+    - qcom,qcs9075-iot-el2kvm
+    - qcom,qcs9075-iot-camx-el2kvm
+    - qcom,qcs9075-iot-subtype1
+  - name: QCS9100 QAM (Ride)
+    soc: QCS9100
+    board: Ride
+    dtb:
+    - qcs9100-ride-el2.dtb
+    - qcs9100-ride.dtb
+    compatible:
+    - qcom,qcs9100-qam-r1.0
+    - qcom,qcs9100-qam-r1.0-el2kvm
+  - name: QCS9100 QAM R2 (Ride R3)
+    soc: QCS9100
+    board: Ride R3
+    dtb:
+    - qcs9100-ride-r3-el2.dtb
+    - qcs9100-ride-r3.dtb
+    compatible:
+    - qcom,qcs9100-qam
+    - qcom,qcs9100-qam-el2kvm
+  - name: SA8775P QAM (Ride)
+    soc: SA8775P
+    board: Ride (QAM)
+    dtb:
+    - sa8775p-ride.dtb
+    compatible:
+    - qcom,sa8775p-qam-r1.0
+    - qcom,sa8775p-qam-r1.0-camx
+    - qcom,sa8775p-qam-r1.0-el2kvm
+    - qcom,sa8775p-qam-r1.0-camx-el2kvm
+  - name: SA8775P QAM R2 (Ride R3)
+    soc: SA8775P
+    board: Ride R3 (QAM R2)
+    dtb:
+    - sa8775p-ride-r3.dtb
+    compatible:
+    - qcom,sa8775p-qam
+    - qcom,sa8775p-qam-camx
+    - qcom,sa8775p-qam-el2kvm
+    - qcom,sa8775p-qam-camx-el2kvm
+- soc_family: Monaco
+  soc_details:
+  - QCS8300
+  - QCS8275
+  boards:
+  - name: QCS8300 ADP (Ride)
+    soc: QCS8300
+    board: Ride (ADP)
+    dtb:
+    - qcs8300-ride-el2.dtb
+    - qcs8300-ride.dtb
+    compatible:
+    - qcom,qcs8300-adp
+    - qcom,qcs8300-adp-camx
+    - qcom,qcs8300-adp-el2kvm
+    - qcom,qcs8300-adp-camx-el2kvm
+  - name: QCS8275 IOT (Monaco EVK, rb4)
+    soc: QCS8275
+    board: Monaco EVK
+    dtb:
+    - monaco-camx-el2.dtb
+    - monaco-evk.dtb
+    compatible:
+    - qcom,qcs8275-iot
+    - qcom,qcs8275-iot-camx
+    - qcom,qcs8275-iot-el2kvm
+    - qcom,qcs8275-iot-camx-el2kvm
+    - qcom,qcs8275-iot-subtype3
+- soc_family: Talos
+  soc_details:
+  - QCS615
+  - QCS615v1.1
+  boards:
+  - name: QCS615 ADP (Ride)
+    soc: QCS615
+    board: Ride (ADP)
+    dtb:
+    - qcs615-ride-el2.dtb
+    - qcs615-ride.dtb
+    compatible:
+    - qcom,qcs615-adp
+    - qcom,qcs615-adp-el2kvm
+  - name: QCS615 IOT (Talos EVK)
+    soc: QCS615
+    board: Talos EVK
+    dtb:
+    - talos-evk-lvds-auo,g133han01.dtb
+    - talos-evk.dtb
+    compatible:
+    - qcom,qcs615-iot
+    - qcom,qcs615-iot-subtype6
+- soc_family: Hamoa
+  soc_details:
+  - Hamoa
+  - Hamoav2.1
+  boards:
+  - name: Hamoa IOT EVK
+    soc: Hamoa
+    board: IOT EVK
+    dtb:
+    - hamoa-iot-evk.dtb
+    compatible:
+    - qcom,hamoa-evk
+    - qcom,hamoa-evk-camx
+    - qcom,hamoa-evk-el2kvm
+    - qcom,hamoa-evk-camx-el2kvm
+    - qcom,hamoa-evk-staging
+    - qcom,hamoa-evk-el2kvm-staging
+- soc_family: Purwa
+  soc_details:
+  - Purwa
+  boards:
+  - name: Purwa IOT EVK
+    soc: Purwa
+    board: IOT EVK
+    dtb:
+    - purwa-iot-evk-el2.dtb
+    - purwa-iot-evk.dtb
+    compatible:
+    - qcom,purwa-evk
+    - qcom,purwa-evk-camx
+    - qcom,purwa-evk-el2kvm
+    - qcom,purwa-evk-camx-el2kvm
+- soc_family: Glymur
+  soc_details:
+  - Glymur
+  boards:
+  - name: Glymur CRD
+    soc: Glymur
+    board: CRD
+    dtb:
+    - glymur-crd.dtb
+    compatible:
+    - qcom,glymur-crd
+    - qcom,glymur-crd-camx
+- soc_family: Shikra
+  soc_details:
+  - ShikraCQM
+  - ShikraCQS
+  - ShikraIQS
+  boards:
+  - name: Shikra CQM EVK
+    soc: ShikraCQM
+    board: CQM EVK
+    dtb:
+    - shikra-cqm-evk.dtb
+    compatible:
+    - qcom,shikracqm-itp
+  - name: Shikra CQS EVK
+    soc: ShikraCQS
+    board: CQS EVK
+    dtb:
+    - shikra-cqs-evk.dtb
+    compatible:
+    - qcom,shikracqs-itp
+  - name: Shikra IQS EVK
+    soc: ShikraIQS
+    board: IQS EVK
+    dtb:
+    - shikra-iqs-evk.dtb
+    compatible:
+    - qcom,shikraiqs-itp
+- soc_family: Pakala
+  soc_details:
+  - SM8750
+  boards:
+  - name: SM8750 MTP
+    soc: SM8750
+    board: MTP
+    dtb:
+    - sm8750-mtp.dtb
+    compatible:
+    - qcom,sm8750-mtp
+  - name: SM8750 QRD
+    soc: SM8750
+    board: QRD
+    dtb:
+    - sm8750-qrd.dtb
+    compatible:
+    - qcom,sm8750-qrd
+- soc_family: Kaanapali
+  soc_details:
+  - Kaanapali
+  boards:
+  - name: Kaanapali MTP
+    soc: Kaanapali
+    board: MTP
+    dtb:
+    - kaanapali-mtp.dtb
+    compatible:
+    - qcom,kaanapali-mtp
+  - name: Kaanapali QRD
+    soc: Kaanapali
+    board: QRD
+    dtb:
+    - kaanapali-qrd.dtb
+    compatible:
+    - qcom,kaanapali-qrd
