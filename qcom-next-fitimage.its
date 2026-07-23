@@ -232,8 +232,16 @@
 		};
 		fdt-kodiak-el2.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kodiak-el2.dtbo");
-     		type = "flat_dt";
-    	};
+			type = "flat_dt";
+		};
+		fdt-qcs5430-fps-camx.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs5430-fps-camx.dtbo");
+			type = "flat_dt";
+		};
+		fdt-qcs6490-rb3gen2-vision-mezzanine-camx.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine-camx.dtbo");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -476,6 +484,22 @@
 		conf-60 {
 			compatible = "qcom,qcs6490-iot-subtype9-el2kvm";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-kodiak-el2.dtbo";
+		};
+		conf-61 {
+			compatible = "qcom,qcs5430-iot-camx-el2kvm";
+			fdt = "fdt-qcs6490-rb3gen2.dtb", "fdt-qcs5430-fps-camx.dtbo", "fdt-kodiak-el2.dtbo";
+		};
+		conf-62 {
+			compatible = "qcom,qcs5430-iot-subtype2-camx-el2kvm";
+			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine.dtb", "fdt-qcs5430-fps-camx.dtbo", "fdt-kodiak-el2.dtbo";
+		};
+		conf-63 {
+			compatible = "qcom,qcs6490-iot-camx-el2kvm";
+			fdt = "fdt-qcs6490-rb3gen2.dtb", "fdt-qcs6490-rb3gen2-vision-mezzanine-camx.dtbo", "fdt-kodiak-el2.dtbo";
+		};
+		conf-64 {
+			compatible = "qcom,qcs6490-iot-subtype2-camx-el2kvm";
+			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine.dtb", "fdt-qcs6490-rb3gen2-vision-mezzanine-camx.dtbo", "fdt-kodiak-el2.dtbo";
 		};
 	};
 };
