@@ -119,9 +119,9 @@ if [[ "$FIT_BUILD_CHECK_MODE" != "off" ]] && ! command -v mkimage >/dev/null 2>&
     can_build_fit=0
 fi
 
-can_run_overlay_diag=1
+can_run_overlay_diagnose=1
 if ! command -v fdtget >/dev/null 2>&1; then
-    can_run_overlay_diag=0
+    can_run_overlay_diagnose=0
 fi
 
 missing_any=0
@@ -134,7 +134,7 @@ diagnose_overlay_notfound() {
     local missing_paths=()
     local labels_list="" fragments_list="" label="" fragment="" tpath=""
 
-    if [[ "$can_run_overlay_diag" -ne 1 ]]; then
+    if [[ "$can_run_overlay_diagnose" -ne 1 ]]; then
         return
     fi
 
