@@ -24,6 +24,10 @@
 			msm-id = <0x00000294>;
 		};
 
+		mahua {
+			msm-id = <0x000002b5>;
+		};
+
 		purwa {
 			msm-id = <0x000002c7>;
 		};
