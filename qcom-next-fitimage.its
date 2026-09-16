@@ -254,6 +254,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-staging.dtbo");
 			type = "flat_dt";
 		};
+		fdt-talos-lyra-evk.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-lyra-evk.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -540,6 +544,10 @@
 		conf-71 {
 			compatible = "qcom,purwa-evk-el2kvm-staging";
 			fdt = "fdt-purwa-iot-evk.dtb", "fdt-x1-el2.dtbo", "fdt-purwa-staging.dtbo";
+		};
+		conf-72 {
+			compatible = "qcom,qcs615-iot-subtype8";
+			fdt = "fdt-talos-lyra-evk.dtb";
 		};
 	};
 };
