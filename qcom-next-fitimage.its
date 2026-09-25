@@ -185,6 +185,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-evk-camx.dtbo");
 			type = "flat_dt";
 		};
+		fdt-eliza-cqs-evk.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/eliza-cqs-evk.dtb");
+			type = "flat_dt";
+		};
 		fdt-shikra-cqm-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-cqm-evk.dtb");
 		};
@@ -508,6 +512,10 @@
 		conf-64 {
 			compatible = "qcom,qcs8275-iot-subtype4";
 			fdt = "fdt-monaco-arduino-monza.dtb";
+		};
+		conf-65 {
+			compatible = "qcom,elizacqs-itp";
+			fdt = "fdt-eliza-cqs-evk.dtb";
 		};
 	};
 };

@@ -12,6 +12,10 @@
 	description = "Image with compressed metadata blob";
 
 	soc {
+		elizacqs {
+			msm-id = <0x000002dc>;
+		};
+
 		glymur {
 			msm-id = <0x000002ba>;
 		};
