@@ -32,7 +32,7 @@ META_FILE="${2:-qcom-metadata.dts}"
 # -----------------------------------------------------------------------------
 # CONFIGURATION
 # -----------------------------------------------------------------------------
-BLACKLIST_SKIP_PATTERNS=("camx" "el2kvm" "staging")
+BLACKLIST_SKIP_PATTERNS=("camx" "el2kvm" "el2gh" "staging")
 
 if [[ ! -f "$ITS_FILE" ]]; then
     echo "fail FILE_NOT_FOUND $ITS_FILE" >&2
