@@ -125,10 +125,6 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs8300-ride-camx.dtbo");
 			type = "flat_dt";
 		};
-		fdt-sa8775p-ride-camx.dtbo {
-			data = /incbin/("./arch/arm64/boot/dts/qcom/sa8775p-ride-camx.dtbo");
-			type = "flat_dt";
-		};
 		fdt-lemans-el2.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-el2.dtbo");
 			type = "flat_dt";

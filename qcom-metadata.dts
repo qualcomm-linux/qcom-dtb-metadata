@@ -93,19 +93,19 @@
 
 	socver {
 		socv1.0 {
-			socver-id = <0x10>;
+			socver-id = <0x0100>;
 		};
 
 		socv1.1 {
-			socver-id = <0x11>;
+			socver-id = <0x0101>;
 		};
 
 		socv2.0 {
-			socver-id = <0x20>;
+			socver-id = <0x0200>;
 		};
 
 		socv2.1 {
-			socver-id = <0x21>;
+			socver-id = <0x0201>;
 		};
 
 	};
@@ -158,19 +158,19 @@
 
 	boardrev {
 		r1.0 {
-			boardrev-id = <0x10>;
+			boardrev-id = <0x0100>;
 		};
 
 		r1.1 {
-			boardrev-id = <0x11>;
+			boardrev-id = <0x0101>;
 		};
 
 		r2.0 {
-			boardrev-id = <0x20>;
+			boardrev-id = <0x0200>;
 		};
 
 		r2.1 {
-			boardrev-id = <0x21>;
+			boardrev-id = <0x0201>;
 		};
 
 	};
