@@ -20,6 +20,10 @@
 			msm-id = <0x000002c5>;
 		};
 
+		hawi {
+			msm-id = <0x000002c3>;
+		};
+
 		kaanapali {
 			msm-id = <0x00000294>;
 		};
