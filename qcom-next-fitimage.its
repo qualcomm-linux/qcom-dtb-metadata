@@ -193,6 +193,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-evk-camx.dtbo");
 			type = "flat_dt";
 		};
+		fdt-eliza-cqs-evk.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/eliza-cqs-evk.dtb");
+			type = "flat_dt";
+		};
 		fdt-shikra-cqm-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-cqm-evk.dtb");
 		};
@@ -529,6 +533,10 @@
 		conf-66 {
 			compatible = "qcom,nord-qam";
 			fdt = "fdt-nord-rrd.dtb";
+		};
+		conf-67 {
+			compatible = "qcom,elizacqs-evk";
+			fdt = "fdt-eliza-cqs-evk.dtb";
 		};
 	};
 };
