@@ -69,6 +69,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kaanapali-qrd.dtb");
 			type = "flat_dt";
 		};
+		fdt-hawi-mtp.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hawi-mtp.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -131,6 +135,10 @@
 		conf-17 {
 			compatible = "qcom,kaanapali-qrd";
 			fdt = "fdt-kaanapali-qrd.dtb";
+		};
+		conf-18 {
+			compatible = "qcom,hawi-mtp";
+			fdt = "fdt-hawi-mtp.dtb";
 		};
 	};
 };

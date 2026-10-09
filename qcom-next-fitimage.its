@@ -226,6 +226,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kaanapali-qrd.dtb");
 			type = "flat_dt";
 		};
+		fdt-hawi-mtp.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hawi-mtp.dtb");
+			type = "flat_dt";
+		};
 		fdt-glymur-crd-camx.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/glymur-crd-camx.dtbo");
 			type = "flat_dt";
@@ -529,6 +533,10 @@
 		conf-66 {
 			compatible = "qcom,nord-qam";
 			fdt = "fdt-nord-rrd.dtb";
+		};
+		conf-67 {
+			compatible = "qcom,hawi-mtp";
+			fdt = "fdt-hawi-mtp.dtb";
 		};
 	};
 };
