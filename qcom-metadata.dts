@@ -296,6 +296,20 @@
 		};
 	};
 
+	display {
+		lvds {
+			display-id = <0x1>;
+		};
+
+		boe {
+			display-id = <0x2>;
+		};
+
+		dv215fhmr01 {
+			display-id = <0x3>;
+		};
+	};
+
 	oem {
 
 	};
