@@ -691,5 +691,9 @@
 			compatible = "qcom,shikraiqs-itp-camx-el2gh";
 			fdt = "fdt-shikra-iqs-evk.dtb", "fdt-shikra-iqs-evk-camx.dtbo";
 		};
+		conf-90 {
+			compatible = "qcom,qcm5430-idp-subtype0";
+			fdt = "fdt-qcm6490-idp.dtb";
+		};
 	};
 };
