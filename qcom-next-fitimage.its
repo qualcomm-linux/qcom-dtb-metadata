@@ -562,5 +562,9 @@
 			compatible = "qcom,elizacqs-evk-ufs";
 			fdt = "fdt-eliza-cqs-evk-ufs.dtb";
 		};
+		conf-71 {
+			compatible = "qcom,qcm5430-idp-subtype0";
+			fdt = "fdt-qcm6490-idp.dtb";
+		};
 	};
 };
