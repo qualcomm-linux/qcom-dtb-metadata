@@ -29,10 +29,6 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtb");
 			type = "flat_dt";
 		};
-		fdt-qcs6490-rb3gen2-vision-mezzanine-el2.dtb {
-			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine-el2.dtb");
-			type = "flat_dt";
-		};
 		fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtb");
 			type = "flat_dt";
@@ -254,6 +250,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine-camx.dtbo");
 			type = "flat_dt";
 		};
+		fdt-qcs6490-rb3gen2-vision-mezzanine.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtbo");
+			type = "flat_dt";
+		};
 		fdt-glymur-staging.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/glymur-staging.dtbo");
 			type = "flat_dt";
@@ -292,7 +292,7 @@
 		};
 		conf-3 {
 			compatible = "qcom,qcs6490-iot-subtype2";
-			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine-el2.dtb";
+			fdt = "fdt-qcs6490-rb3gen2-el2.dtb", "fdt-qcs6490-rb3gen2-vision-mezzanine.dtbo";
 		};
 		conf-4 {
 			compatible = "qcom,qcs6490-iot-subtype9";
@@ -344,7 +344,7 @@
 		};
 		conf-16 {
 			compatible = "qcom,qcs5430-iot-subtype2";
-			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine-el2.dtb";
+			fdt = "fdt-qcs6490-rb3gen2-el2.dtb", "fdt-qcs6490-rb3gen2-vision-mezzanine.dtbo";
 		};
 		conf-17 {
 			compatible = "qcom,qcs5430-iot-subtype9";
@@ -516,7 +516,7 @@
 		};
 		conf-59 {
 			compatible = "qcom,qcs6490-iot-subtype2-camx";
-			fdt = "fdt-qcs6490-rb3gen2-vision-mezzanine-el2.dtb", "fdt-qcs6490-rb3gen2-vision-mezzanine-camx.dtbo";
+			fdt = "fdt-qcs6490-rb3gen2-el2.dtb", "fdt-qcs6490-rb3gen2-vision-mezzanine.dtbo", "fdt-qcs6490-rb3gen2-vision-mezzanine-camx.dtbo";
 		};
 		conf-60 {
 			compatible = "qcom,qcs5430-iot-camx";
