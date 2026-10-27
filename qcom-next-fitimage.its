@@ -238,6 +238,10 @@
 		fdt-shikra-iqs-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-iqs-evk.dtb");
 		};
+		fdt-shikra-iqs-evk-m2-wifi-bt.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtbo");
+			type = "flat_dt";
+		};
 		fdt-shikra-cqm-evk-el2.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-cqm-evk-el2.dtb");
 			type = "flat_dt";
@@ -742,6 +746,14 @@
 		conf-98 {
 			compatible = "qcom,iq10800md-qam";
 			fdt = "fdt-nord-rrd.dtb";
+		};
+		conf-99 {
+			compatible = "qcom,shikraiqs-itp-r10.0-subtype0";
+			fdt = "fdt-shikra-iqs-evk.dtb", "fdt-shikra-iqs-evk-m2-wifi-bt.dtbo";
+		};
+		conf-100 {
+			compatible = "qcom,shikraiqs-itp-r8.0-subtype1";
+			fdt = "fdt-shikra-iqs-evk.dtb", "fdt-shikra-iqs-evk-m2-wifi-bt.dtbo";
 		};
 	};
 };
