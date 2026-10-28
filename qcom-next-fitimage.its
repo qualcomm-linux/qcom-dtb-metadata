@@ -368,6 +368,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/mahua-crd-camx.dtbo");
 			type = "flat_dt";
 		};
+		fdt-hamoa-advantech-som-db5830.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-advantech-som-db5830.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -774,6 +778,14 @@
 		conf-101 {
 			compatible = "qcom,mahua-qcb";
 			fdt = "fdt-mahua-qcb.dtb";
+		};
+		conf-102 {
+			compatible = "qcom,hamoa-come-el2gh";
+			fdt = "fdt-hamoa-advantech-som-db5830.dtb";
+		};
+		conf-103 {
+			compatible = "qcom,hamoa-come-el2kvm";
+			fdt = "fdt-hamoa-advantech-som-db5830.dtb", "fdt-x1-el2.dtbo";
 		};
 	};
 };
