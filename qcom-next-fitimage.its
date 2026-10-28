@@ -283,6 +283,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-arduino-monza.dtb");
 			type = "flat_dt";
 		};
+		fdt-hamoa-advantech-som-db5830.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-advantech-som-db5830.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -569,6 +573,10 @@
 		conf-71 {
 			compatible = "qcom,glymur-qcb";
 			fdt = "fdt-glymur-qcb.dtb";
+		};
+		conf-72 {
+			compatible = "qcom,hamoa-come";
+			fdt = "fdt-hamoa-advantech-som-db5830.dtb";
 		};
 	};
 };
