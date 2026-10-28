@@ -77,6 +77,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/kalambo-crd.dtb");
 			type = "flat_dt";
 		};
+		fdt-hamoa-advantech-som-db5830.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-advantech-som-db5830.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -147,6 +151,10 @@
 		conf-19 {
 			compatible = "qcom,kalambo-crd";
 			fdt = "fdt-kalambo-crd.dtb";
+		};
+		conf-20 {
+			compatible = "qcom,hamoa-come";
+			fdt = "fdt-hamoa-advantech-som-db5830.dtb";
 		};
 	};
 };
