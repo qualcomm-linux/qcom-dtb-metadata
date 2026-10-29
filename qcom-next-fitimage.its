@@ -292,6 +292,14 @@
 		fdt-shikra-iqs-evk-camx.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-iqs-evk-camx.dtbo");
 		};
+		fdt-talos-lyra-evk.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-lyra-evk.dtb");
+			type = "flat_dt";
+		};
+		fdt-talos-lyra-evk-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-lyra-evk-el2.dtb");
+			type = "flat_dt";
+			};
 	};
 
 	configurations {
@@ -594,6 +602,14 @@
 		conf-75 {
 			compatible = "qcom,mahua-crd-camx";
 			fdt = "fdt-mahua-crd.dtb", "fdt-glymur-crd-camx.dtbo";
+		};
+		conf-76 {
+			compatible = "qcom,qcs615-iot-subtype8";
+			fdt = "fdt-talos-lyra-evk-el2.dtb";
+		};
+		conf-77 {
+			compatible = "qcom,qcs615-iot-subtype8-el2gh";
+			fdt = "fdt-talos-lyra-evk.dtb";
 		};
 	};
 };
