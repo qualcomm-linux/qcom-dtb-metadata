@@ -283,6 +283,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-arduino-monza.dtb");
 			type = "flat_dt";
 		};
+		fdt-monaco-arduino-monza-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-arduino-monza-el2.dtb");
+			type = "flat_dt";
+		};
 		fdt-shikra-cqm-evk-camx.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-cqm-evk-camx.dtbo");
 		};
@@ -549,7 +553,7 @@
 		};
 		conf-64 {
 			compatible = "qcom,qcs8275-iot-subtype4";
-			fdt = "fdt-monaco-arduino-monza.dtb";
+			fdt = "fdt-monaco-arduino-monza-el2.dtb";
 		};
 		conf-65 {
 			compatible = "qcom,qam8x97p-qam";
@@ -594,6 +598,10 @@
 		conf-75 {
 			compatible = "qcom,mahua-crd-camx";
 			fdt = "fdt-mahua-crd.dtb", "fdt-glymur-crd-camx.dtbo";
+		};
+		conf-76 {
+			compatible = "qcom,qcs8275-iot-subtype4-el2gh";
+			fdt = "fdt-monaco-arduino-monza.dtb";
 		};
 	};
 };
