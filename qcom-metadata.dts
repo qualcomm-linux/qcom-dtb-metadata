@@ -197,6 +197,18 @@
 			boardrev-id = <0x21>;
 		};
 
+		r7.0 {
+			boardrev-id = <0x70>;
+		};
+
+		r8.0 {
+			boardrev-id = <0x80>;
+		};
+
+		r10.0 {
+			boardrev-id = <0xa0>;
+		};
+
 	};
 
 	board-subtype-peripheral-subtype {
