@@ -193,6 +193,14 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-camera-imx577.dtbo");
 			type = "flat_dt";
 		};
+		fdt-monaco-evk-emmc.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtbo");
+			type = "flat_dt";
+		};
+		fdt-monaco-evk-sd-card.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtbo");
+			type = "flat_dt";
+		};
 		fdt-hamoa-staging.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-staging.dtbo");
 			type = "flat_dt";
@@ -341,7 +349,7 @@
 		};
 		conf-9 {
 			compatible = "qcom,qcs8275-iot";
-			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-camera-imx577.dtbo";
+			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-camera-imx577.dtbo", "fdt-monaco-evk-sd-card.dtbo";
 		};
 		conf-10 {
 			compatible = "qcom,qcs615-adp";
@@ -357,7 +365,7 @@
 		};
 		conf-13 {
 			compatible = "qcom,qcs8275-iot-camx";
-			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-camx.dtbo", "fdt-monaco-camx-el2.dtbo";
+			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-camx.dtbo", "fdt-monaco-camx-el2.dtbo", "fdt-monaco-evk-sd-card.dtbo";
 		};
 		conf-14 {
 			compatible = "qcom,qcs8300-adp-camx";
@@ -413,7 +421,7 @@
 		};
 		conf-27 {
 			compatible = "qcom,qcs8275-iot-camx-el2gh";
-			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-evk-camx.dtbo";
+			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-evk-camx.dtbo", "fdt-monaco-evk-sd-card.dtbo";
 		};
 		conf-28 {
 			compatible = "qcom,qcs8300-adp-camx-el2gh";
@@ -437,7 +445,7 @@
 		};
 		conf-33 {
 			compatible = "qcom,qcs8275-iot-subtype3";
-			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-ifp-mezzanine.dtbo";
+			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-ifp-mezzanine.dtbo", "fdt-monaco-evk-sd-card.dtbo";
 		};
 		conf-34 {
 			compatible = "qcom,purwa-evk-el2kvm";
@@ -614,6 +622,22 @@
 		conf-77 {
 			compatible = "qcom,qcs9075-iot-subtype1-emmc";
 			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-ifp-mezzanine.dtbo", "fdt-lemans-evk-emmc.dtbo";
+		};
+		conf-78 {
+			compatible = "qcom,qcs8275-iot-emmc";
+			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-camera-imx577.dtbo", "fdt-monaco-evk-emmc.dtbo";
+		};
+		conf-79 {
+			compatible = "qcom,qcs8275-iot-camx-emmc";
+			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-camx.dtbo", "fdt-monaco-camx-el2.dtbo", "fdt-monaco-evk-emmc.dtbo";
+		};
+		conf-80 {
+			compatible = "qcom,qcs8275-iot-camx-el2gh-emmc";
+			fdt = "fdt-monaco-evk.dtb", "fdt-monaco-evk-camx.dtbo", "fdt-monaco-evk-emmc.dtbo";
+		};
+		conf-81 {
+			compatible = "qcom,qcs8275-iot-subtype3-emmc";
+			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-ifp-mezzanine.dtbo", "fdt-monaco-evk-emmc.dtbo";
 		};
 	};
 };
