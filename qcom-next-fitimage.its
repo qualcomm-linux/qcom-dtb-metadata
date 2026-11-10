@@ -181,6 +181,14 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-camera-csi1-imx577.dtbo");
 			type = "flat_dt";
 		};
+		fdt-lemans-evk-emmc.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-emmc.dtbo");
+			type = "flat_dt";
+		};
+		fdt-lemans-evk-sd-card.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/lemans-evk-sd-card.dtbo");
+			type = "flat_dt";
+		};
 		fdt-monaco-evk-camera-imx577.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/monaco-evk-camera-imx577.dtbo");
 			type = "flat_dt";
@@ -317,7 +325,7 @@
 		};
 		conf-5 {
 			compatible = "qcom,qcs9075-iot";
-			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-camera-csi1-imx577.dtbo";
+			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-camera-csi1-imx577.dtbo", "fdt-lemans-evk-sd-card.dtbo";
 		};
 		conf-6 {
 			compatible = "qcom,qcs9100-qam";
@@ -345,7 +353,7 @@
 		};
 		conf-12 {
 			compatible = "qcom,qcs9075-iot-camx";
-			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-camx-el2.dtbo";
+			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-camx-el2.dtbo", "fdt-lemans-evk-sd-card.dtbo";
 		};
 		conf-13 {
 			compatible = "qcom,qcs8275-iot-camx";
@@ -389,7 +397,7 @@
 		};
 		conf-23 {
 			compatible = "qcom,qcs9075-iot-camx-el2gh";
-			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo";
+			fdt = "fdt-lemans-evk.dtb", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-evk-sd-card.dtbo";
 		};
 		conf-24 {
 			compatible = "qcom,purwa-evk";
@@ -425,7 +433,7 @@
 		};
 		conf-32 {
 			compatible = "qcom,qcs9075-iot-subtype1";
-			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-ifp-mezzanine.dtbo";
+			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-ifp-mezzanine.dtbo", "fdt-lemans-evk-sd-card.dtbo";
 		};
 		conf-33 {
 			compatible = "qcom,qcs8275-iot-subtype3";
@@ -602,6 +610,10 @@
 		conf-76 {
 			compatible = "qcom,qcs8275-iot-subtype4-el2gh";
 			fdt = "fdt-monaco-arduino-monza.dtb";
+		};
+		conf-77 {
+			compatible = "qcom,qcs9075-iot-subtype1-emmc";
+			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-ifp-mezzanine.dtbo", "fdt-lemans-evk-emmc.dtbo";
 		};
 	};
 };
