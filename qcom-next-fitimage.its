@@ -348,6 +348,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-lyra-evk-el2.dtb");
 			type = "flat_dt";
 			};
+		fdt-mahua-crd-camx.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/mahua-crd-camx.dtbo");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -649,7 +653,7 @@
 		};
 		conf-75 {
 			compatible = "qcom,mahua-crd-camx";
-			fdt = "fdt-mahua-crd.dtb", "fdt-glymur-crd-camx.dtbo";
+			fdt = "fdt-mahua-crd.dtb", "fdt-mahua-crd-camx.dtbo";
 		};
 		conf-76 {
 			compatible = "qcom,qcs8275-iot-subtype4-el2gh";
