@@ -291,6 +291,14 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/nord-rrd.dtb");
 			type = "flat_dt";
 		};
+		fdt-nord-ride-embedded-camx.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/nord-ride-embedded-camx.dtbo");
+			type = "flat_dt";
+		};
+		fdt-nord-rrd-camx.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/nord-rrd-camx.dtbo");
+			type = "flat_dt";
+		};
 		fdt-purwa-staging.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-staging.dtbo");
 			type = "flat_dt";
@@ -638,6 +646,14 @@
 		conf-81 {
 			compatible = "qcom,qcs8275-iot-subtype3-emmc";
 			fdt = "fdt-monaco-evk-el2.dtb", "fdt-monaco-evk-ifp-mezzanine.dtbo", "fdt-monaco-evk-emmc.dtbo";
+		};
+		conf-82 {
+			compatible = "qcom,qam8x97p-qam-camx";
+			fdt = "fdt-nord-ride-embedded.dtb", "fdt-nord-ride-embedded-camx.dtbo";
+		}
+		conf-83 {
+			compatible = "qcom,nord-qam-camx";
+			fdt = "fdt-nord-rrd.dtb", "fdt-nord-rrd-camx.dtbo";
 		};
 	};
 };
