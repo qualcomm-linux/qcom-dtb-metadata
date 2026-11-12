@@ -650,7 +650,7 @@
 		conf-82 {
 			compatible = "qcom,qam8x97p-qam-camx";
 			fdt = "fdt-nord-ride-embedded.dtb", "fdt-nord-ride-embedded-camx.dtbo";
-		}
+		};
 		conf-83 {
 			compatible = "qcom,nord-qam-camx";
 			fdt = "fdt-nord-rrd.dtb", "fdt-nord-rrd-camx.dtbo";
