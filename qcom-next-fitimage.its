@@ -230,6 +230,18 @@
 		fdt-shikra-iqs-evk.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-iqs-evk.dtb");
 		};
+		fdt-shikra-cqm-evk-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-cqm-evk-el2.dtb");
+			type = "flat_dt";
+		};
+		fdt-shikra-cqs-evk-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-cqs-evk-el2.dtb");
+			type = "flat_dt";
+		};
+		fdt-shikra-iqs-evk-el2.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/shikra-iqs-evk-el2.dtb");
+			type = "flat_dt";
+		};
 		fdt-hamoa-camx-el2.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-camx-el2.dtbo");
 			type = "flat_dt";
@@ -469,15 +481,15 @@
 		};
 		conf-37 {
 			compatible = "qcom,shikracqm-itp";
-			fdt = "fdt-shikra-cqm-evk.dtb";
+			fdt = "fdt-shikra-cqm-evk-el2.dtb";
 		};
 		conf-38 {
 			compatible = "qcom,shikracqs-itp";
-			fdt = "fdt-shikra-cqs-evk.dtb";
+			fdt = "fdt-shikra-cqs-evk-el2.dtb";
 		};
 		conf-39 {
 			compatible = "qcom,shikraiqs-itp";
-			fdt = "fdt-shikra-iqs-evk.dtb";
+			fdt = "fdt-shikra-iqs-evk-el2.dtb";
 		};
 		conf-40 {
 			compatible = "qcom,qcs6490-iot-subtype13";
@@ -609,15 +621,15 @@
 		};
 		conf-72 {
 			compatible = "qcom,shikracqm-itp-camx";
-			fdt = "fdt-shikra-cqm-evk.dtb", "fdt-shikra-cqm-evk-camx.dtbo";
+			fdt = "fdt-shikra-cqm-evk-el2.dtb", "fdt-shikra-cqm-evk-camx.dtbo";
 		};
 		conf-73 {
 			compatible = "qcom,shikracqs-itp-camx";
-			fdt = "fdt-shikra-cqs-evk.dtb", "fdt-shikra-cqs-evk-camx.dtbo";
+			fdt = "fdt-shikra-cqs-evk-el2.dtb", "fdt-shikra-cqs-evk-camx.dtbo";
 		};
 		conf-74 {
 			compatible = "qcom,shikraiqs-itp-camx";
-			fdt = "fdt-shikra-iqs-evk.dtb", "fdt-shikra-iqs-evk-camx.dtbo";
+			fdt = "fdt-shikra-iqs-evk-el2.dtb", "fdt-shikra-iqs-evk-camx.dtbo";
 		};
 		conf-75 {
 			compatible = "qcom,mahua-crd-camx";
@@ -650,10 +662,34 @@
 		conf-82 {
 			compatible = "qcom,qam8x97p-qam-camx";
 			fdt = "fdt-nord-ride-embedded.dtb", "fdt-nord-ride-embedded-camx.dtbo";
-		}
+		};
 		conf-83 {
 			compatible = "qcom,nord-qam-camx";
 			fdt = "fdt-nord-rrd.dtb", "fdt-nord-rrd-camx.dtbo";
+		};
+		conf-84 {
+			compatible = "qcom,shikracqm-itp-el2gh";
+			fdt = "fdt-shikra-cqm-evk.dtb";
+		};
+		conf-85 {
+			compatible = "qcom,shikracqs-itp-el2gh";
+			fdt = "fdt-shikra-cqs-evk.dtb";
+		};
+		conf-86 {
+			compatible = "qcom,shikraiqs-itp-el2gh";
+			fdt = "fdt-shikra-iqs-evk.dtb";
+		};
+		conf-87 {
+			compatible = "qcom,shikracqm-itp-camx-el2gh";
+			fdt = "fdt-shikra-cqm-evk.dtb", "fdt-shikra-cqm-evk-camx.dtbo";
+		};
+		conf-88 {
+			compatible = "qcom,shikracqs-itp-camx-el2gh";
+			fdt = "fdt-shikra-cqs-evk.dtb", "fdt-shikra-cqs-evk-camx.dtbo";
+		};
+		conf-89 {
+			compatible = "qcom,shikraiqs-itp-camx-el2gh";
+			fdt = "fdt-shikra-iqs-evk.dtb", "fdt-shikra-iqs-evk-camx.dtbo";
 		};
 	};
 };
