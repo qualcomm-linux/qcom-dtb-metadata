@@ -205,6 +205,14 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-staging.dtbo");
 			type = "flat_dt";
 		};
+		fdt-hamoa-evk-staging.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-evk-staging.dtbo");
+			type = "flat_dt";
+		};
+		fdt-purwa-evk-staging.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-evk-staging.dtbo");
+			type = "flat_dt";
+		};
 		fdt-hamoa-evk-camx.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-evk-camx.dtbo");
 			type = "flat_dt";
@@ -690,6 +698,22 @@
 		conf-89 {
 			compatible = "qcom,shikraiqs-itp-camx-el2gh";
 			fdt = "fdt-shikra-iqs-evk.dtb", "fdt-shikra-iqs-evk-camx.dtbo";
+		};
+		conf-90 {
+			compatible = "qcom,hamoa-evk-qps615-staging";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-evk-staging.dtbo", "fdt-hamoa-staging.dtbo";
+		};
+		conf-91 {
+			compatible = "qcom,hamoa-evk-qps615-el2kvm-staging";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-evk-staging.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-staging.dtbo";
+		};
+		conf-92 {
+			compatible = "qcom,purwa-evk-qps615-staging";
+			fdt = "fdt-purwa-iot-evk.dtb", "fdt-purwa-evk-staging.dtbo", "fdt-purwa-staging.dtbo";
+		};
+		conf-93 {
+			compatible = "qcom,purwa-evk-qps615-el2kvm-staging";
+			fdt = "fdt-purwa-iot-evk.dtb", "fdt-purwa-evk-staging.dtbo", "fdt-x1-el2.dtbo", "fdt-purwa-staging.dtbo";
 		};
 	};
 };
