@@ -310,6 +310,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/mahua-crd.dtb");
 			type = "flat_dt";
 		};
+		fdt-mahua-qcb.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/mahua-qcb.dtb");
+			type = "flat_dt";
+		};
 		fdt-nord-ride-embedded.dtb {
 			data =
 			/incbin/("./arch/arm64/boot/dts/qcom/nord-ride-embedded.dtb");
@@ -766,6 +770,10 @@
 		conf-100 {
 			compatible = "qcom,shikraiqs-itp-r8.0-subtype1";
 			fdt = "fdt-shikra-iqs-evk.dtb", "fdt-shikra-iqs-evk-m2-wifi-bt.dtbo";
+		};
+		conf-101 {
+			compatible = "qcom,mahua-qcb";
+			fdt = "fdt-mahua-qcb.dtb";
 		};
 	};
 };
