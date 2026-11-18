@@ -213,6 +213,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-staging.dtbo");
 			type = "flat_dt";
 		};
+		fdt-hamoa-evk-staging.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-evk-staging.dtbo");
+			type = "flat_dt";
+		};
 		fdt-hamoa-evk-camx.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-evk-camx.dtbo");
 			type = "flat_dt";
@@ -321,6 +325,10 @@
 		};
 		fdt-purwa-staging.dtbo {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-staging.dtbo");
+			type = "flat_dt";
+		};
+		fdt-purwa-evk-staging.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/purwa-evk-staging.dtbo");
 			type = "flat_dt";
 		};
 		fdt-monaco-arduino-monza.dtb {
@@ -541,11 +549,11 @@
 		};
 		conf-47 {
 			compatible = "qcom,hamoa-evk-staging";
-			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-hamoa-staging.dtbo";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-hamoa-evk-staging.dtbo", "fdt-hamoa-staging.dtbo";
 		};
 		conf-48 {
 			compatible = "qcom,hamoa-evk-el2kvm-staging";
-			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-staging.dtbo";
+			fdt = "fdt-hamoa-iot-evk.dtb", "fdt-hamoa-iot-evk-camera-imx577.dtbo", "fdt-hamoa-evk-staging.dtbo", "fdt-x1-el2.dtbo", "fdt-hamoa-staging.dtbo";
 		};
 		conf-49 {
 			compatible = "qcom,glymur-crd-camx";
@@ -601,11 +609,11 @@
 		};
 		conf-62 {
 			compatible = "qcom,purwa-evk-staging";
-			fdt = "fdt-purwa-iot-evk.dtb", "fdt-purwa-staging.dtbo";
+			fdt = "fdt-purwa-iot-evk.dtb", "fdt-purwa-evk-staging.dtbo", "fdt-purwa-staging.dtbo";
 		};
 		conf-63 {
 			compatible = "qcom,purwa-evk-el2kvm-staging";
-			fdt = "fdt-purwa-iot-evk.dtb", "fdt-x1-el2.dtbo", "fdt-purwa-staging.dtbo";
+			fdt = "fdt-purwa-iot-evk.dtb", "fdt-purwa-evk-staging.dtbo", "fdt-x1-el2.dtbo", "fdt-purwa-staging.dtbo";
 		};
 		conf-64 {
 			compatible = "qcom,qcs8275-iot-subtype4";
