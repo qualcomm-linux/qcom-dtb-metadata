@@ -38,7 +38,7 @@ The Flattened Image Tree Specification (FITSpec) suggests the possible image sel
 2. This implementation uses a metadata binary structured in DT format for selecting the appropriate configuration. A node, named fdt-qcom-metadata.dtb, for metadata binary is provided under images node in the FIT tree with type “qcom_metadata”.
 3. The compatible string suffixes in the FIT tree can be put in any order but node corresponding to each suffix must be present in the qcom-dtb-metadata binary.
 If any new suffix is introduced, it must be added to metadata (pls refer qcom-dtb-metadata.dts below this section). The new suffix sub-node must be added under the relevant node.
-   - Suggested pattern: `<soc>-<soc-sku>-<socver>-<board>-<boardrev>-<board-subtype-peripheral-subtype>-<board-subtype-storage-type>-<board-subtype-memory-size>-<softsku>-<oem>`
+   - Suggested pattern: `<soc>-<soc-sku>-<socver>-<board>-<boardrev>-<board-subtype-peripheral-subtype>-<board-subtype-storage-type>-<board-subtype-memory-size>-<softsku>-<display>-<oem>`
 4. There is to be build-time check to find any gaps/disparity between the compatible string suffixes versus their metadata definitions.
 5. Each of the suffixes inside the compatible string need to be exact match for a DTB to get selected. Upon any mismatch a configuration is rejected, and search moves ahead with other available configurations.
 6. The compatible string that gets matched has its corresponding DTB(O)s selected for boot up.
@@ -57,7 +57,7 @@ The qcom-fitimage.its file is the base configuration used to generate FIT images
  
 ### DTB Metadata Description and Parsing
  
-- The QCOM metadata supports soc, soc-sku, socver, board, boardrev, board-subtype-peripheral-subtype, board-subtype-storage-type, board-subtype-memory-size, softsku and oem DT nodes. Sub-nodes of respective type can be added under each node.
+- The QCOM metadata supports soc, soc-sku, socver, board, boardrev, board-subtype-peripheral-subtype, board-subtype-storage-type, board-subtype-memory-size, softsku, display and oem DT nodes. Sub-nodes of respective type can be added under each node.
 
 - The SoC specific identifiers are encapsulated in DT properties named msm-id and socver-id.
 
@@ -83,6 +83,8 @@ When board-subtype property is present in sub-node of board-subtype-peripheral-s
 When board-subtype property is present in sub-node of board-subtype-storage-type node, bits 12-14 represent the storage type and the remaining bits are ignored by the firmware.
 When board-subtype property is present in sub-node of board-subtype-memory-size node, bits 8-11 represent the memory size and the remaining bits are ignored by the firmware.
 Remaining bits in the board-subtype property are reserved for future use.
+
+- Each sub-node under the `display` node must contain a property named `display-id` of type <u32>. Sub-nodes identify display-related attributes such as the interface type (e.g. `lvds`), the panel vendor (e.g. `boe`) and the panel model (e.g. `dv215fhmr01`). Values must be unique and assigned sequentially starting from `0x1`; previously assigned values must not be reused.
 
 - Each sub-node under the `oem` node must contain a property named `oem-id`. The `oem-id` identifies the OEM and is used for selecting the OEM-specific board Device Tree.
 
