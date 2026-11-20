@@ -147,6 +147,10 @@
 			board-id = <0x00000001>;
 		};
 
+		come {
+			board-id = <0x0000002e>;
+		};
+
 		crd {
 			board-id = <0x00000028>;
 		};

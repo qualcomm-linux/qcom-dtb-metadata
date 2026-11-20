@@ -348,6 +348,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-lyra-evk-el2.dtb");
 			type = "flat_dt";
 			};
+		fdt-hamoa-advantech-som-db5830.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/hamoa-advantech-som-db5830.dtb");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -738,6 +742,14 @@
 		conf-97 {
 			compatible = "qcom,qcs6490-iot-subtype9-el2gh-staging";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-qcs6490-rb3gen2-industrial-mezzanine-staging.dtbo";
+		};
+		conf-98 {
+			compatible = "qcom,hamoa-come-el2gh";
+			fdt = "fdt-hamoa-advantech-som-db5830.dtb";
+		};
+		conf-99 {
+			compatible = "qcom,hamoa-come-el2kvm";
+			fdt = "fdt-hamoa-advantech-som-db5830.dtb", "fdt-x1-el2.dtbo";
 		};
 	};
 };
