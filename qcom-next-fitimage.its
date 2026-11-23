@@ -348,6 +348,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/talos-lyra-evk-el2.dtb");
 			type = "flat_dt";
 			};
+		fdt-kalambo-crd-camx.dtbo {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/kalambo-crd-camx.dtbo");
+			type = "flat_dt";
+		};
 	};
 
 	configurations {
@@ -742,6 +746,10 @@
 		conf-98 {
 			compatible = "qcom,iq10800md-qam";
 			fdt = "fdt-nord-rrd.dtb";
+		};
+		conf-99 {
+			compatible = "qcom,kalambo-crd-camx";
+			fdt = "fdt-kalambo-crd.dtb", "fdt-kalambo-crd-camx.dtbo";
 		};
 	};
 };
