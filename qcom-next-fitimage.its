@@ -739,5 +739,9 @@
 			compatible = "qcom,qcs6490-iot-subtype9-el2gh-staging";
 			fdt = "fdt-qcs6490-rb3gen2-industrial-mezzanine.dtb", "fdt-qcs6490-rb3gen2-industrial-mezzanine-staging.dtbo";
 		};
+		conf-98 {
+			compatible = "qcom,iq10800md-qam";
+			fdt = "fdt-nord-rrd.dtb";
+		};
 	};
 };
