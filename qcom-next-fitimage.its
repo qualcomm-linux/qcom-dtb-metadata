@@ -133,6 +133,10 @@
 			data = /incbin/("./arch/arm64/boot/dts/qcom/glymur-crd.dtb");
 			type = "flat_dt";
 		};
+		fdt-glymur-sip-crd.dtb {
+			data = /incbin/("./arch/arm64/boot/dts/qcom/glymur-sip-crd.dtb");
+			type = "flat_dt";
+		};
 		fdt-glymur-qcb.dtb {
 			data = /incbin/("./arch/arm64/boot/dts/qcom/glymur-qcb.dtb");
 			type = "flat_dt";
@@ -786,6 +790,10 @@
 		conf-103 {
 			compatible = "qcom,hamoa-come-el2kvm";
 			fdt = "fdt-hamoa-advantech-som-db5830.dtb", "fdt-x1-el2.dtbo";
+		};
+		conf-104 {
+			compatible = "qcom,glymursip-crd";
+			fdt = "fdt-glymur-sip-crd.dtb";
 		};
 	};
 };
