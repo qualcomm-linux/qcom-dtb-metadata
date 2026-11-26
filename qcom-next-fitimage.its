@@ -795,5 +795,9 @@
 			compatible = "qcom,glymursip-crd";
 			fdt = "fdt-glymur-sip-crd.dtb";
 		};
+		conf-105 {
+			compatible = "qcom,qcs9075-iot-subtype1-camx";
+			fdt = "fdt-lemans-evk-el2.dtb", "fdt-lemans-evk-ifp-mezzanine.dtbo", "fdt-lemans-evk-camx.dtbo", "fdt-lemans-camx-el2.dtb", "fdt-lemans-evk-sd-card.dtbo";
+		};
 	};
 };
